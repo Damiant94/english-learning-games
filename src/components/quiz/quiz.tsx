@@ -1,7 +1,7 @@
 import Layout from '@/components/layout/layout';
 import Link from 'next/link';
 
-export default function QuizMain() {
+export default function Quiz() {
   return (
     <Layout>
       <div>Quiz</div>

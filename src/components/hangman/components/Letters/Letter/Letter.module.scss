@@ -1,0 +1,46 @@
+@import "../../../../../utils/scss/colors.scss";
+
+.Letter {
+    margin: 0.3rem;
+    font-size: 1.2rem;
+    font-family: inherit;
+    border: 1px solid $dark-pink;
+    border-radius: 0.3rem;
+    background-color: $dark-background;
+    color: $light-creme;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        border: 1px solid $light-pink;
+        color: white;
+    }
+
+    &.Correct {
+        pointer-events: none;
+        background-color: $dark-cyan;
+        border: 1px solid $light-cyan;
+        color: $dark;
+    
+        &:hover {
+        background-color: $dark-cyan;
+        border: 1px solid $light-cyan;
+        }
+    }
+        
+    &.Wrong {
+        pointer-events: none;
+        background-color: $dark;
+    
+        &:hover {
+            background-color: $dark;
+        }
+    }
+}

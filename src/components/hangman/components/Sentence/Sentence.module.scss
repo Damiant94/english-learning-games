@@ -1,0 +1,24 @@
+@import "../../../../utils/scss/colors.scss";
+
+.Sentence {
+    font-size: 3rem;
+    text-align: center;
+    margin: 1rem 0;
+    pointer-events: none;
+    color: $light-cyan;
+    letter-spacing: 2px;
+    user-select: none;
+    word-break: break-word;
+}
+
+@media (max-width: 500px) {
+    .Sentence {
+        font-size: 2.3rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .Sentence {
+        font-size: 2rem;
+    }
+}

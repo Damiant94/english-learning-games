@@ -1,0 +1,9 @@
+@import "../../../../utils/scss/colors.scss";
+@import "../../../../utils/scss/button.scss";
+
+.Reset {
+    @extend %button;
+
+    width: 8rem;
+    font-size: 1rem;
+}

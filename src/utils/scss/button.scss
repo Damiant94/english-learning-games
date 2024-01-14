@@ -1,0 +1,21 @@
+@import "./colors.scss";
+
+%button {
+    margin: 1rem;
+    height: 3rem;
+    font-family: inherit;
+    border: 1px solid $dark-cyan;
+    color: $light-creme;
+    background-color: $dark-background;
+    outline: none;
+    border-radius: 0.8rem;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    user-select: none;
+
+    &:hover {
+        border: 1px solid $light-cyan;
+        color: white;
+    }
+}

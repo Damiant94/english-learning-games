@@ -1,0 +1,13 @@
+@import "../../../../utils//scss/colors.scss";
+
+.Header {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    margin: 1rem 0;
+    pointer-events: none;
+    color: $light-cyan;
+    transition: text-shadow 0.5s ease-in-out;
+    text-shadow: 0 0 10px #fff, 0 0 30px $dark-cyan;
+    user-select: none;
+}
