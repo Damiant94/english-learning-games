@@ -60,7 +60,6 @@ const HangmanMain = () => {
       .then(response => {
         const sentence = response.data[0].toUpperCase().split("");
         setNewSentence(sentence);
-        // this.setSentence("GO-.".split(""));
         console.log("word taken from api");
       })
       .catch(() => {
@@ -71,9 +70,7 @@ const HangmanMain = () => {
   };
 
   interface Definitions {
-    definition: string,
-    synonyms: string[],
-    antonyms: string[]
+    definition: string
   }
 
   const setNewDefinitions = (word: string) => {
@@ -86,18 +83,15 @@ const HangmanMain = () => {
             }, [])
           .map((element: Definitions) => element.definition);
         if (definitions.length === 0) {
-          // this.setState({definitions: [message], currentDefinition: message})
           setDefinitions([message]);
           setCurrentDefinition(message)
         }
         else {
           setDefinitions(definitions)
           setCurrentDefinition(definitions[0])
-          // this.setState({definitions: definitions, currentDefinition: definitions[0]})
         }
       })
       .catch(() => {
-        // this.setState({definitions: [message], currentDefinition: message});
         setDefinitions([message]);
         setCurrentDefinition(message);
       })
