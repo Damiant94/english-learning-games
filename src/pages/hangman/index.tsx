@@ -1,5 +1,5 @@
-import Hangman from "@/components/hangman/hangman";
+import Hangman from "@/components/hangman/Hangman";
 
-export default function HangmanMain() {
+export default function hangmanindex() {
   return <Hangman />
 }

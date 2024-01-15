@@ -1,9 +1,9 @@
 import React, {memo} from 'react';
 import classes from './Header.module.scss';
 
-const header = () => {
+const header = (props: {text: string}) => {
     return (
-        <div className={classes.Header}>the hangman game</div>
+        <div className={classes.Header}>{props.text}</div>
     );
 };
 

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import Header from './components/Header/Header';
+import Header from '../shared/Header/Header';
 import Hearts from './components/Hearts/Hearts';
 import Sentence from './components/Sentence/Sentence';
 import Letters from './components/Letters/Letters';
 import Reset from './components/Reset/Reset';
 import Result from './components/Result/Result';
-import Spinner from './components/Spinner/Spinner';
+import Spinner from '../shared/Spinner/Spinner';
 import Backdrop from './components/Backdrop/Backdrop';
 import Translation from './components/Translation/Translation';
 
@@ -20,7 +20,7 @@ import words from '../../utils/js/words';
 const randomWordUrl = 'https://random-word-rest-api.vercel.app/word';
 const translationUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/';
 
-const HangmanMain = () => {
+const hangmanMain = () => {
 
   const [sentence, setSentence] = useState<string[]>([]);
   const [currentSentence, setCurrentSentence] = useState<string>('');
@@ -209,8 +209,8 @@ const HangmanMain = () => {
   }
 
   return (
-    <div className={classes.Game}>
-      <Header />
+    <div className={classes.HangmanMain}>
+      <Header text="the hangman game"/>
       <Hearts />
       {sentence.length > 0 ? view : <Spinner />}
     </div>
@@ -219,4 +219,4 @@ const HangmanMain = () => {
 }
 
 
-export default HangmanMain;
+export default hangmanMain;

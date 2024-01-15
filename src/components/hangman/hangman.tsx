@@ -1,8 +1,8 @@
-import Layout from '@/components/layout/layout';
+import Layout from '@/components/shared/Layout/Layout';
 import HangmanMain from '@/components/hangman/HangmanMain';
 import Link from 'next/link';
 
-export default function Hangman() {
+export default function hangman() {
   return (
     <Layout>
       <div>

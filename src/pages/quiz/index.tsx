@@ -1,5 +1,5 @@
-import Quiz from "@/components/quiz/quiz";
+import Quiz from "@/components/quiz/Quiz";
 
-export default function QuizMain() {
-    return <Quiz/>
+export default function quizIndex() {
+  return <Quiz />
 }
