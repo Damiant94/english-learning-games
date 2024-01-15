@@ -1,4 +1,5 @@
 @import "../../utils/scss/colors.scss";
+@import "../../utils/scss/button.scss";
 
 .QuizMain {
   display: flex;
@@ -13,6 +14,7 @@
   border-radius: 1rem;
   box-shadow: 0px 0px 30px -20px $light-cyan;
   transition: all 0.5s;
+  user-select: none;
 
   &:hover {
     box-shadow: 0px 0px 20px -10px $light-cyan;
@@ -21,5 +23,68 @@
     > div:first-of-type {
       text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px $dark-cyan, 0 0 40px $dark-cyan;
     }
+  }
+
+  .Word {
+    font-size: 2rem;
+    border: 2px solid white;
+    padding: 5px;
+    border-radius: 0.2rem;
+    margin-bottom: 10px;
+  }
+
+  .AnswerWrap {
+    display: flex;
+    flex-direction: column;
+
+    .Answer {
+        border: 1px solid white;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 0.2rem;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #222;
+        }
+
+        &.AnsweredCorrect {
+            border: 1px solid green;
+            cursor: auto;
+            &:hover {
+                background-color: #111;
+            }
+        }
+
+        &.AnsweredWrong {
+            border: 1px solid red;
+            cursor: auto;
+            &:hover {
+                background-color: #111;
+            }
+        }
+    }
+  }
+
+  .Score {
+    font-size: 2rem;
+
+    .Correct {
+        color: green;
+    }
+
+    .Wrong {
+        color: red;
+    }
+  }
+
+  .NextBtn {
+    @extend %button;
+
+    width: 8rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
