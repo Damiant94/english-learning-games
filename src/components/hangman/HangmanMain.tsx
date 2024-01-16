@@ -159,7 +159,6 @@ const hangmanMain = () => {
   }
 
   const changeDefinitionHandler = () => {
-      console.log({definitions})
       const definitionsNumber = definitions.length;
       const currentDefinitionIndex = definitions.indexOf(currentDefinition);
       const newDefinitionIndex = definitionsNumber - 1 !== currentDefinitionIndex ? currentDefinitionIndex + 1 : 0;
