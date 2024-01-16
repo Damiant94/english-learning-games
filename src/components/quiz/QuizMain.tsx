@@ -158,11 +158,13 @@ const quizMain = () => {
         {answers}
       </div>
     </div>
-    <div className={styles.Score}>
-      Score: 
-      <span className={answered === 'correct' ? styles.Correct : answered === 'wrong' ? styles.Wrong : ''}>
-        {score}
-      </span>
+    <div className={styles.ScoreWrap}>
+      <div className={answered === 'correct' ? styles.Correct : answered === 'wrong' ? styles.Wrong : ''}>
+        {answered === 'correct' ? 'Answer correct' : answered === 'wrong' ? 'Answer Wrong' : 'Waiting for answer...'}
+      </div>
+      <div className={styles.Score}>
+        Score: {score}
+      </div>
     </div>
     {
       answered === 'correct' ? 
@@ -179,7 +181,7 @@ const quizMain = () => {
 
   return (
     <div className={styles.QuizMain}>
-      <Header text="quiz"/>
+      <Header text="english quiz"/>
       {dataReady ? view : <Spinner />}
     </div>
   );
