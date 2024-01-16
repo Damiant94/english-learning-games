@@ -5,21 +5,10 @@ import Spinner from '../shared/Spinner/Spinner';
 import styles from './QuizMain.module.scss';
 import axios from 'axios';
 import words from '../../utils/js/words';
+import shuffle from '../../utils/js/shuffle';
 
 const randomWordUrl = 'https://random-word-rest-api.vercel.app/word';
 const translationUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/';
-
-/**
- * Shuffles array in place. ES6 version
- * @param {Array} a items An array containing the items.
- */
-let shuffle = (a: any[]) => {
-  for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
 const quizMain = () => {
 
