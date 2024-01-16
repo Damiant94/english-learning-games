@@ -78,7 +78,7 @@ const quizWordMain = () => {
       })
       .catch((err) => {
         console.log(err);
-        setAnswers(prevState => [...prevState]);
+        getRandomWord();
       })
   }
 
