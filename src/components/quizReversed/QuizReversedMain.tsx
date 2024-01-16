@@ -86,7 +86,7 @@ const quizReversedMain = () => {
     axios.get(`${randomWordUrl}s?number=3`)
       .then(response => {
         const randomWords = response.data;
-        console.log(randomWords);
+        // console.log(randomWords);
         setWordsAnswers(prevState => {
           const newWordsAnswers = randomWords.map((word: string) => {
             return {word: word, isCorrect: false};
@@ -95,7 +95,7 @@ const quizReversedMain = () => {
           shuffle(finalWords)
           return finalWords;
         });
-        console.log("word taken from api");
+        console.log("3 words taken from api");
       })
       .catch(() => {
         const randomWords = words.sort(() => 0.5 - Math.random()).slice(0, 3);
@@ -107,7 +107,7 @@ const quizReversedMain = () => {
           shuffle(finalWords)
           return finalWords;
         });
-        console.log("word taken from frontend");
+        console.log("3 words taken from frontend");
       })
       .finally(() => {
         setDataReady(true);
