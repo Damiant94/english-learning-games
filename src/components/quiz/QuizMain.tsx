@@ -37,12 +37,12 @@ const quizMain = () => {
   }
 
   useEffect(() => {
-    console.log('first useEffect called');
+    // console.log('first useEffect called');
     getRandomWord();
   }, [])
 
   const getRandomWord = () => {
-    console.log("getRandomWord called");
+    // console.log("getRandomWord called");
     axios.get(randomWordUrl)
       .then(response => {
         const randomWord = response.data[0];
@@ -55,6 +55,14 @@ const quizMain = () => {
         console.log("word taken from frontend");
       });
   };
+
+  useEffect(() => {
+    // console.log({randomWord});
+    if (randomWord) {
+      addWord(randomWord);
+    }
+  },
+  [randomWord])
 
   const addWord = (word: string) => {
     axios.get(translationUrl + word)
@@ -87,7 +95,7 @@ const quizMain = () => {
 
   useEffect(() => {
     if (hasPageBeenRendered.current) {
-      console.log({definitions});
+      // console.log({definitions});
       if (definitions.length < 4) {
         getRandomWord();
       } else {
@@ -98,14 +106,6 @@ const quizMain = () => {
     hasPageBeenRendered.current = true;
   },
   [definitions])
-
-  useEffect(() => {
-    console.log({randomWord});
-    if (randomWord) {
-      addWord(randomWord);
-    }
-  },
-  [randomWord])
 
   const answerClicked = (isCorrect: boolean) => {
     if (isCorrect) {
