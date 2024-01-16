@@ -1,3 +1,6 @@
+@import "../../../utils/scss/button.scss";
+@import "../../../utils/scss/colors.scss";
+
 .Layout {
     display: flex;
     flex-direction: column;
@@ -8,4 +11,30 @@
     background: #111;
     height: 100%;
     width: 100%;
+
+    .Menu {
+        display: flex;
+
+        .Btn {
+            @extend %button;
+        
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .ActivatedRoute {
+            cursor: default;
+            user-select: none;
+            color: $light-cyan;
+            background-color: #222;
+
+            &:hover {
+                background-color: #222;
+                color: $light-cyan;
+                border: 1px solid $dark-cyan;
+            }
+        }
+    }
 }
