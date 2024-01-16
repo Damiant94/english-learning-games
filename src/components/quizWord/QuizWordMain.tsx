@@ -15,14 +15,14 @@ const quizWordMain = () => {
 
   const [currentWord, setCurrentWord] = useState('');
   const [randomWord, setRandomWord] = useState('');
-  const [definitions, setDefinitions] = useState<Definition[]>([]);
+  const [answers, setAnswers] = useState<Answer[]>([]);
   const hasPageBeenRendered = useRef(false);
   const [dataReady, setDataReady] = useState(false);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState<'correct' | 'wrong' | ''>('');
 
-  interface Definition {
-    definition: string,
+  interface Answer {
+    answer: string,
     isCorrect: boolean
   }
 
@@ -61,15 +61,15 @@ const quizWordMain = () => {
         if (definition) {
           if (!currentWord) {
             setCurrentWord(word);
-            setDefinitions([{
-              definition: definition,
+            setAnswers([{
+              answer: definition,
               isCorrect: true
             }]);
           } else {
-            setDefinitions(prevState => {
+            setAnswers(prevState => {
               const definitions = [...prevState];
               definitions.push({
-                definition: definition,
+                answer: definition,
                 isCorrect: false
               });
               return definitions;
@@ -79,23 +79,23 @@ const quizWordMain = () => {
       })
       .catch((err) => {
         console.log(err);
-        setDefinitions(prevState => [...prevState]);
+        setAnswers(prevState => [...prevState]);
       })
   }
 
   useEffect(() => {
     if (hasPageBeenRendered.current) {
       // console.log({definitions});
-      if (definitions.length < 4) {
+      if (answers.length < 4) {
         getRandomWord();
       } else {
-        setDefinitions(prevState => shuffle(prevState));
+        setAnswers(prevState => shuffle(prevState));
         setDataReady(true);
       }
     }
     hasPageBeenRendered.current = true;
   },
-  [definitions])
+  [answers])
 
   const answerClicked = (isCorrect: boolean) => {
     if (isCorrect) {
@@ -106,10 +106,10 @@ const quizWordMain = () => {
     }
   }
 
-  const getNextWord = () => {
+  const getNextQuestion = () => {
     setCurrentWord('');
     setRandomWord('');
-    setDefinitions([]);
+    setAnswers([]);
     hasPageBeenRendered.current = false;
     setDataReady(false);
     getRandomWord();
@@ -119,7 +119,7 @@ const quizWordMain = () => {
   const reset = () => {
     setCurrentWord('');
     setRandomWord('');
-    setDefinitions([]);
+    setAnswers([]);
     hasPageBeenRendered.current = false;
     setDataReady(false);
     getRandomWord();
@@ -127,14 +127,14 @@ const quizWordMain = () => {
     setScore(0);
   }
 
-  const answers = <>
-    {definitions.map((definition, index) => {
+  const answersJsx = <>
+    {answers.map((answer, index) => {
       return (
         <div 
           key={index}
-          className={`${styles.Answer} ${answered && definition.isCorrect && styles.AnsweredCorrect} ${answered && !definition.isCorrect && styles.AnsweredWrong}`}
-          onClick={() => answerClicked(definition.isCorrect)}>
-            {definition.definition}
+          className={`${styles.Answer} ${answered && answer.isCorrect && styles.AnsweredCorrect} ${answered && !answer.isCorrect && styles.AnsweredWrong}`}
+          onClick={() => answerClicked(answer.isCorrect)}>
+            {answer.answer}
         </div>
       )
     })}
@@ -144,13 +144,13 @@ const quizWordMain = () => {
     <div className={styles.Word}>{currentWord}</div>
     <div className={styles.AnswerWrap}>
       <div>
-        {answers}
+        {answersJsx}
       </div>
     </div>
     <Score answered={answered} score={score} />
     {
       answered === 'correct' ? 
-        <div onClick={getNextWord} className={styles.NextBtn}>
+        <div onClick={getNextQuestion} className={styles.NextBtn}>
           Next stage
         </div> : 
       answered === 'wrong' || answered === '' ? 

@@ -15,13 +15,13 @@ const quizDefinitionMain = () => {
 
   const [currentDefinition, setCurrentDefinition] = useState('');
   const [randomWord, setRandomWord] = useState('');
-  const [wordsAnswers, setWordsAnswers] = useState<WordAnswer[]>([]);
+  const [answers, setAnswers] = useState<WordAnswer[]>([]);
   const [dataReady, setDataReady] = useState(false);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState<'correct' | 'wrong' | ''>('');
 
   interface WordAnswer {
-    word: string,
+    answer: string,
     isCorrect: boolean
   }
 
@@ -59,8 +59,8 @@ const quizDefinitionMain = () => {
         const definition = response.data[0].meanings[0].definitions[0].definition
         if (definition) {
           setCurrentDefinition(definition);
-          setWordsAnswers([{
-            word: word,
+          setAnswers([{
+            answer: word,
             isCorrect: true
           }]);
         } else {
@@ -87,9 +87,9 @@ const quizDefinitionMain = () => {
       .then(response => {
         const randomWords = response.data;
         // console.log(randomWords);
-        setWordsAnswers(prevState => {
+        setAnswers(prevState => {
           const newWordsAnswers = randomWords.map((word: string) => {
-            return {word: word, isCorrect: false};
+            return {answer: word, isCorrect: false};
           })
           const finalWords = prevState.concat(newWordsAnswers);
           shuffle(finalWords)
@@ -99,9 +99,9 @@ const quizDefinitionMain = () => {
       })
       .catch(() => {
         const randomWords = words.sort(() => 0.5 - Math.random()).slice(0, 3);
-        setWordsAnswers(prevState => {
+        setAnswers(prevState => {
           const newWordsAnswers = randomWords.map((word: string) => {
-            return {word: word, isCorrect: false};
+            return {answer: word, isCorrect: false};
           })
           const finalWords = prevState.concat(newWordsAnswers);
           shuffle(finalWords)
@@ -124,10 +124,10 @@ const quizDefinitionMain = () => {
     }
   }
 
-  const getNextDefinition = () => {
+  const getNextQuestion = () => {
     setCurrentDefinition('');
     setRandomWord('');
-    setWordsAnswers([]);
+    setAnswers([]);
     setDataReady(false);
     getRandomWord();
     setAnswered('');
@@ -136,21 +136,21 @@ const quizDefinitionMain = () => {
   const reset = () => {
     setCurrentDefinition('');
     setRandomWord('');
-    setWordsAnswers([]);
+    setAnswers([]);
     setDataReady(false);
     getRandomWord();
     setAnswered('');
     setScore(0);
   }
 
-  const answers = <>
-    {wordsAnswers.map((wordAnswer, index) => {
+  const answersJsx = <>
+    {answers.map((answer, index) => {
       return (
         <div 
           key={index}
-          className={`${styles.Answer} ${answered && wordAnswer.isCorrect && styles.AnsweredCorrect} ${answered && !wordAnswer.isCorrect && styles.AnsweredWrong}`}
-          onClick={() => answerClicked(wordAnswer.isCorrect)}>
-            {wordAnswer.word}
+          className={`${styles.Answer} ${answered && answer.isCorrect && styles.AnsweredCorrect} ${answered && !answer.isCorrect && styles.AnsweredWrong}`}
+          onClick={() => answerClicked(answer.isCorrect)}>
+            {answer.answer}
         </div>
       )
     })}
@@ -160,13 +160,13 @@ const quizDefinitionMain = () => {
     <div className={styles.Question}>{currentDefinition}</div>
     <div className={styles.AnswerWrap}>
       <div>
-        {answers}
+        {answersJsx}
       </div>
     </div>
     <Score answered={answered} score={score} />
     {
       answered === 'correct' ? 
-        <div onClick={getNextDefinition} className={styles.NextBtn}>
+        <div onClick={getNextQuestion} className={styles.NextBtn}>
           Next stage
         </div> : 
       answered === 'wrong' || answered === '' ? 
