@@ -1,0 +1,15 @@
+.ScoreWrap {
+  font-size: 2rem;
+
+  .Correct {
+      color: green;
+  }
+
+  .Wrong {
+      color: red;
+  }
+
+  .Score {
+      text-align: center
+  }
+}

@@ -6,6 +6,7 @@ import styles from './QuizMain.module.scss';
 import axios from 'axios';
 import words from '../../utils/js/words';
 import shuffle from '../../utils/js/shuffle';
+import Score from '../shared/Score/Score';
 
 const randomWordUrl = 'https://random-word-rest-api.vercel.app/word';
 const translationUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/';
@@ -147,14 +148,7 @@ const quizMain = () => {
         {answers}
       </div>
     </div>
-    <div className={styles.ScoreWrap}>
-      <div className={answered === 'correct' ? styles.Correct : answered === 'wrong' ? styles.Wrong : ''}>
-        {answered === 'correct' ? 'Answer correct' : answered === 'wrong' ? 'Answer Wrong' : 'Waiting for answer...'}
-      </div>
-      <div className={styles.Score}>
-        Score: {score}
-      </div>
-    </div>
+    <Score answered={answered} score={score} />
     {
       answered === 'correct' ? 
         <div onClick={getNextWord} className={styles.NextBtn}>
