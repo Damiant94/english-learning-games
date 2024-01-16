@@ -3,7 +3,7 @@ import Header from '../shared/Header/Header';
 import Hearts from './components/Hearts/Hearts';
 import Sentence from './components/Sentence/Sentence';
 import Letters from './components/Letters/Letters';
-import Reset from './components/Reset/Reset';
+import Reset from '../shared/Btn/Btn';
 import Result from './components/Result/Result';
 import Spinner from '../shared/Spinner/Spinner';
 import Backdrop from './components/Backdrop/Backdrop';
@@ -16,6 +16,7 @@ import classesLetter from './components/Letters/Letter/Letter.module.scss';
 import axios from 'axios';
 
 import words from '../../utils/js/words';
+import Btn from '../shared/Btn/Btn';
 
 const randomWordUrl = 'https://random-word-rest-api.vercel.app/word';
 const translationUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/';
@@ -171,7 +172,7 @@ const hangmanMain = () => {
       <>
         <Sentence currentSentence={currentSentence} />
         <Letters clickHandle={letterClickHandler} />
-        <Reset clickHandle={restart} />
+        <Btn clickHandle={restart} text="Reset"/>
       </>
     );
   } else {

@@ -10,6 +10,7 @@ import Score from '../shared/Score/Score';
 import Answers from '../shared/Answers/Answers';
 import Answer from '@/utils/interfaces/Answer';
 import Question from '../shared/Question/Question';
+import Btn from '../shared/Btn/Btn';
 
 const randomWordUrl = 'https://random-word-rest-api.vercel.app/word';
 const translationUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/';
@@ -114,7 +115,7 @@ const quizWordMain = () => {
     setAnswered('');
   }
 
-  const reset = () => {
+  const restart = () => {
     setCurrentQuestion('');
     setRandomWord('');
     setAnswers([]);
@@ -129,17 +130,7 @@ const quizWordMain = () => {
     <Question currentQuestion={currentQuestion} />
     <Answers answers={answers} answered={answered} answerClicked={answerClicked}/>
     <Score answered={answered} score={score} />
-    {
-      answered === 'correct' ? 
-        <div onClick={getNextQuestion} className={styles.NextBtn}>
-          Next stage
-        </div> : 
-      answered === 'wrong' || answered === '' ? 
-        <div onClick={reset} className={styles.NextBtn}>
-          Restart
-        </div> :
-      ''
-    }
+    <Btn text={answered === 'correct' ? 'Next Question' : 'Restart'} clickHandle={answered === 'correct' ? getNextQuestion : restart} />
   </>
 
   return (
