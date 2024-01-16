@@ -1,13 +1,13 @@
 import Layout from '@/components/shared/Layout/Layout';
 import Link from 'next/link';
-import QuizReversedMain from './QuizReversedMain';
-import styles from './QuizReversed.module.scss';
+import QuizDefinitionMain from './QuizDefinitionMain';
+import styles from './QuizDefinition.module.scss';
 
-export default function quiz() {
+export default function quizDefinition() {
   return (
     <Layout>
       <div>
-        <QuizReversedMain/>
+        <QuizDefinitionMain/>
       </div>
       <div>
         <Link href="/">

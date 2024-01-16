@@ -1,13 +1,13 @@
 import Layout from '@/components/shared/Layout/Layout';
 import Link from 'next/link';
-import QuizMain from './QuizMain';
-import styles from './Quiz.module.scss';
+import QuizWordMain from './QuizWordMain';
+import styles from './QuizWord.module.scss';
 
-export default function quiz() {
+export default function quizWord() {
   return (
     <Layout>
       <div>
-        <QuizMain/>
+        <QuizWordMain/>
       </div>
       <div>
         <Link href="/">

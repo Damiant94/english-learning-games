@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Header from '../shared/Header/Header';
 import Spinner from '../shared/Spinner/Spinner';
 
-import styles from './QuizReversedMain.module.scss';
+import styles from './QuizDefinitionMain.module.scss';
 import axios from 'axios';
 import words from '../../utils/js/words';
 import shuffle from '../../utils/js/shuffle';
@@ -11,7 +11,7 @@ import Score from '../shared/Score/Score';
 const randomWordUrl = 'https://random-word-rest-api.vercel.app/word';
 const translationUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/';
 
-const quizReversedMain = () => {
+const quizDefinitionMain = () => {
 
   const [currentDefinition, setCurrentDefinition] = useState('');
   const [randomWord, setRandomWord] = useState('');
@@ -178,8 +178,8 @@ const quizReversedMain = () => {
   </>
 
   return (
-    <div className={styles.QuizReversedMain}>
-      <Header text="english quiz reversed"/>
+    <div className={styles.QuizDefinitionMain}>
+      <Header text="english quiz definition"/>
       {dataReady ? view : <Spinner />}
     </div>
   );
@@ -187,4 +187,4 @@ const quizReversedMain = () => {
 }
 
 
-export default quizReversedMain;
+export default quizDefinitionMain;

@@ -11,14 +11,14 @@ export default function Home() {
             Hangman
           </div>
         </Link>
-        <Link href="/quiz">
+        <Link href="/quiz-word">
           <div className={styles.Btn}>
-            English Quiz
+            English Quiz Word
           </div>
         </Link>
-        <Link href="/quiz-reversed">
+        <Link href="/quiz-definition">
           <div className={styles.Btn}>
-            English Quiz Reversed
+            English Quiz Definition
           </div>
         </Link>
       </div>
