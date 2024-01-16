@@ -25,46 +25,6 @@
     }
   }
 
-  .Word {
-    font-size: 2rem;
-    border: 2px solid $light-pink;
-    padding: 10px;
-    border-radius: 0.2rem;
-    margin-bottom: 10px;
-  }
-
-  .AnswerWrap {
-    display: flex;
-    flex-direction: column;
-
-    .Answer {
-        border: 1px solid white;
-        margin: 10px;
-        padding: 10px;
-        border-radius: 0.2rem;
-        cursor: pointer;
-
-        &:hover {
-            background-color: #222;
-        }
-
-        &.AnsweredCorrect {
-            cursor: auto;
-            background-color: $dark-pink;
-            &:hover {
-                background-color: $dark-pink;
-            }
-        }
-
-        &.AnsweredWrong {
-            cursor: auto;
-            &:hover {
-                background-color: #111;
-            }
-        }
-    }
-  }
-
   .NextBtn {
     @extend %button;
 

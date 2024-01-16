@@ -7,23 +7,21 @@ import axios from 'axios';
 import words from '../../utils/js/words';
 import shuffle from '../../utils/js/shuffle';
 import Score from '../shared/Score/Score';
+import Answers from '../shared/Answers/Answers';
+import Answer from '@/utils/interfaces/Answer';
+import Question from '../shared/Question/Question';
 
 const randomWordUrl = 'https://random-word-rest-api.vercel.app/word';
 const translationUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/';
 
 const quizDefinitionMain = () => {
 
-  const [currentDefinition, setCurrentDefinition] = useState('');
+  const [currentQuestion, setCurrentQuestion] = useState('');
   const [randomWord, setRandomWord] = useState('');
-  const [answers, setAnswers] = useState<WordAnswer[]>([]);
+  const [answers, setAnswers] = useState<Answer[]>([]);
   const [dataReady, setDataReady] = useState(false);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState<'correct' | 'wrong' | ''>('');
-
-  interface WordAnswer {
-    answer: string,
-    isCorrect: boolean
-  }
 
   useEffect(() => {
     // console.log('first useEffect called');
@@ -58,7 +56,7 @@ const quizDefinitionMain = () => {
       .then((response: any) => {
         const definition = response.data[0].meanings[0].definitions[0].definition
         if (definition) {
-          setCurrentDefinition(definition);
+          setCurrentQuestion(definition);
           setAnswers([{
             answer: word,
             isCorrect: true
@@ -74,12 +72,12 @@ const quizDefinitionMain = () => {
   }
 
   useEffect(() => {
-    if (currentDefinition) {
+    if (currentQuestion) {
       // console.log({currentDefinition});
       get3RandomWords();
     }
   },
-  [currentDefinition])
+  [currentQuestion])
 
   const get3RandomWords = () => {
     // console.log("getRandomWords called");
@@ -120,12 +118,11 @@ const quizDefinitionMain = () => {
       setAnswered('correct');
     } else {
       setAnswered('wrong');
-      // console.log('wrong answer');
     }
   }
 
   const getNextQuestion = () => {
-    setCurrentDefinition('');
+    setCurrentQuestion('');
     setRandomWord('');
     setAnswers([]);
     setDataReady(false);
@@ -134,7 +131,7 @@ const quizDefinitionMain = () => {
   }
 
   const reset = () => {
-    setCurrentDefinition('');
+    setCurrentQuestion('');
     setRandomWord('');
     setAnswers([]);
     setDataReady(false);
@@ -143,26 +140,9 @@ const quizDefinitionMain = () => {
     setScore(0);
   }
 
-  const answersJsx = <>
-    {answers.map((answer, index) => {
-      return (
-        <div 
-          key={index}
-          className={`${styles.Answer} ${answered && answer.isCorrect && styles.AnsweredCorrect} ${answered && !answer.isCorrect && styles.AnsweredWrong}`}
-          onClick={() => answerClicked(answer.isCorrect)}>
-            {answer.answer}
-        </div>
-      )
-    })}
-  </>
-
   const view = <>
-    <div className={styles.Question}>{currentDefinition}</div>
-    <div className={styles.AnswerWrap}>
-      <div>
-        {answersJsx}
-      </div>
-    </div>
+    <Question currentQuestion={currentQuestion} />
+    <Answers answers={answers} answered={answered} answerClicked={answerClicked}/>
     <Score answered={answered} score={score} />
     {
       answered === 'correct' ? 

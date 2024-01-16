@@ -7,24 +7,22 @@ import axios from 'axios';
 import words from '../../utils/js/words';
 import shuffle from '../../utils/js/shuffle';
 import Score from '../shared/Score/Score';
+import Answers from '../shared/Answers/Answers';
+import Answer from '@/utils/interfaces/Answer';
+import Question from '../shared/Question/Question';
 
 const randomWordUrl = 'https://random-word-rest-api.vercel.app/word';
 const translationUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/';
 
 const quizWordMain = () => {
-
-  const [currentWord, setCurrentWord] = useState('');
+  const [currentQuestion, setCurrentQuestion] = useState('');
   const [randomWord, setRandomWord] = useState('');
   const [answers, setAnswers] = useState<Answer[]>([]);
-  const hasPageBeenRendered = useRef(false);
   const [dataReady, setDataReady] = useState(false);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState<'correct' | 'wrong' | ''>('');
 
-  interface Answer {
-    answer: string,
-    isCorrect: boolean
-  }
+  const hasPageBeenRendered = useRef(false);
 
   useEffect(() => {
     // console.log('first useEffect called');
@@ -59,8 +57,8 @@ const quizWordMain = () => {
       .then((response: any) => {
         const definition = response.data[0].meanings[0].definitions[0].definition
         if (definition) {
-          if (!currentWord) {
-            setCurrentWord(word);
+          if (!currentQuestion) {
+            setCurrentQuestion(word);
             setAnswers([{
               answer: definition,
               isCorrect: true
@@ -107,7 +105,7 @@ const quizWordMain = () => {
   }
 
   const getNextQuestion = () => {
-    setCurrentWord('');
+    setCurrentQuestion('');
     setRandomWord('');
     setAnswers([]);
     hasPageBeenRendered.current = false;
@@ -117,7 +115,7 @@ const quizWordMain = () => {
   }
 
   const reset = () => {
-    setCurrentWord('');
+    setCurrentQuestion('');
     setRandomWord('');
     setAnswers([]);
     hasPageBeenRendered.current = false;
@@ -127,26 +125,9 @@ const quizWordMain = () => {
     setScore(0);
   }
 
-  const answersJsx = <>
-    {answers.map((answer, index) => {
-      return (
-        <div 
-          key={index}
-          className={`${styles.Answer} ${answered && answer.isCorrect && styles.AnsweredCorrect} ${answered && !answer.isCorrect && styles.AnsweredWrong}`}
-          onClick={() => answerClicked(answer.isCorrect)}>
-            {answer.answer}
-        </div>
-      )
-    })}
-  </>
-
   const view = <>
-    <div className={styles.Word}>{currentWord}</div>
-    <div className={styles.AnswerWrap}>
-      <div>
-        {answersJsx}
-      </div>
-    </div>
+    <Question currentQuestion={currentQuestion} />
+    <Answers answers={answers} answered={answered} answerClicked={answerClicked}/>
     <Score answered={answered} score={score} />
     {
       answered === 'correct' ? 
