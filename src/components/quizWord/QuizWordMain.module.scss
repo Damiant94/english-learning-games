@@ -49,15 +49,14 @@
         }
 
         &.AnsweredCorrect {
-            border: 1px solid green;
             cursor: auto;
+            background-color: $dark-pink;
             &:hover {
-                background-color: #111;
+                background-color: $dark-pink;
             }
         }
 
         &.AnsweredWrong {
-            border: 1px solid red;
             cursor: auto;
             &:hover {
                 background-color: #111;

@@ -103,7 +103,6 @@ const quizWordMain = () => {
       setAnswered('correct');
     } else {
       setAnswered('wrong');
-      console.log('wrong answer');
     }
   }
 

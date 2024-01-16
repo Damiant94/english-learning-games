@@ -1,12 +1,14 @@
+@import "../../../utils/scss/colors.scss";
+
 .ScoreWrap {
   font-size: 2rem;
 
   .Correct {
-      color: green;
+      color: $light-pink;
   }
 
   .Wrong {
-      color: red;
+      color: $light-cyan;
   }
 
   .Score {
