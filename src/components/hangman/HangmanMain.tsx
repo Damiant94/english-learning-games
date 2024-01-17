@@ -15,8 +15,8 @@ import classesLetter from './components/Letters/Letter/Letter.module.scss';
 
 import axios from 'axios';
 
-import words from '../../utils/js/words';
 import Btn from '../shared/Btn/Btn';
+import { getDefinitionsApi, getRandomWordApi } from '@/utils/api/api';
 
 const randomWordUrl = 'https://random-word-rest-api.vercel.app/word';
 const translationUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/';
@@ -56,46 +56,16 @@ const hangmanMain = () => {
     setNewDefinitions(sentence.join(""));
   };
 
-  const createSentence = () => {
-    axios.get(randomWordUrl)
-      .then(response => {
-        const sentence = response.data[0].toUpperCase().split("");
-        setNewSentence(sentence);
-        console.log("word taken from api");
-      })
-      .catch(() => {
-        const sentence = words[Math.floor(Math.random() * words.length)].toUpperCase().split("");
-        setNewSentence(sentence);
-        console.log("word taken from frontend");
-      });
+  const createSentence = async () => {
+    const response = await getRandomWordApi();
+    const sentence = response.toUpperCase().split("");
+    setNewSentence(sentence);
   };
 
-  interface Definitions {
-    definition: string
-  }
-
-  const setNewDefinitions = (word: string) => {
-    const message = "Sorry, couldn't find a definition";
-    axios.get(translationUrl + word)
-      .then((response: any) => {
-        const definitions: Definitions[] = response.data[0].meanings
-          .reduce((acc: Definitions[], meaning: any) => {
-            return acc.concat(meaning.definitions)
-            }, [])
-          .map((element: Definitions) => element.definition);
-        if (definitions.length === 0) {
-          setDefinitions([message]);
-          setCurrentDefinition(message)
-        }
-        else {
-          setDefinitions(definitions)
-          setCurrentDefinition(definitions[0])
-        }
-      })
-      .catch(() => {
-        setDefinitions([message]);
-        setCurrentDefinition(message);
-      })
+  const setNewDefinitions = async (word: string) => {
+    const definitions = await getDefinitionsApi(word);
+    setDefinitions(definitions);
+    setCurrentDefinition(definitions[0]);
   };
 
   useEffect(() => {
