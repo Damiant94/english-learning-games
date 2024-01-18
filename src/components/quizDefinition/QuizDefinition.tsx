@@ -112,8 +112,7 @@ const QuizDefinition = () => {
     <Question currentQuestion={currentQuestion} />
     <Answers answers={answers} answered={answered} answerClicked={answerClicked} />
     <Score answered={answered} score={score} />
-    <Btn text={answered === 'correct' ? 'Next Question' : 'Restart'} clickHandle={answered === 'correct' ? getNextQuestion : restart} />
-
+    <Btn text={answered === Answered.CORRECT ? 'Next Question' : 'Restart'} clickHandle={answered === Answered.CORRECT ? getNextQuestion : restart} />
   </>
 
   return (
