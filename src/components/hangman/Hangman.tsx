@@ -17,6 +17,12 @@ import stylesLetter from './components/Letters/Letter/Letter.module.scss';
 import { getDefinitionsApi, getRandomWordApi } from '@/utils/api/api';
 import Layout from '../shared/Layout/Layout';
 
+enum Status {
+  PROGRESS = 'progress',
+  WIN = 'win',
+  LOSE = 'lose'
+}
+
 
 const Hangman = () => {
 
@@ -25,7 +31,7 @@ const Hangman = () => {
   const [definitions, setDefinitions] = useState<any>([]);
   const [currentDefinition, setCurrentDefinition] = useState<any>('');
   const [lives, setLives] = useState(9);
-  const [status, setStatus] = useState('progress');
+  const [status, setStatus] = useState<Status>(Status.PROGRESS);
   const [backdrop, setBackdrop] = useState(false);
 
   const setFreshState = () => {
@@ -34,7 +40,7 @@ const Hangman = () => {
     setDefinitions([]);
     setCurrentDefinition('');
     setLives(9);
-    setStatus('progress');
+    setStatus(Status.PROGRESS);
     setBackdrop(false);
   };
 
@@ -95,7 +101,7 @@ const Hangman = () => {
     }
     setCurrentSentence(newCurrentSentence);
     if (!newCurrentSentence.includes("_")) {
-      setStatus('win');
+      setStatus(Status.WIN);
     }
   };
 
@@ -104,7 +110,7 @@ const Hangman = () => {
     document.querySelector(`[data-heart="${lives}"]`)!.className = stylesHeart.HeartLost;
 
     if (lives === 1) {
-      setStatus('lose');
+      setStatus(Status.LOSE);
     }
     setLives(prevState => prevState - 1)
   };
@@ -133,8 +139,8 @@ const Hangman = () => {
     setCurrentDefinition(definitions[newDefinitionIndex]);
   };
 
-  let view = null;
-  if (status === 'progress') {
+  let view;
+  if (status === Status.PROGRESS) {
     view = (
       <>
         <Sentence currentSentence={currentSentence} />
@@ -144,10 +150,10 @@ const Hangman = () => {
     );
   } else {
     let message, classColor;
-    if (status === 'win') {
+    if (status === Status.WIN) {
       message = "You won!";
       classColor = "Win";
-    } else if (status === 'lose') {
+    } else if (status === Status.LOSE) {
       message = "You lose.";
       classColor = "Lose";
     } else {

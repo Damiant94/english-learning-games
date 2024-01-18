@@ -12,6 +12,7 @@ import Answer from '@/utils/interfaces/Answer';
 
 import styles from './QuizWord.module.scss';
 import Layout from '../shared/Layout/Layout';
+import Answered from '@/utils/interfaces/Answered';
 
 
 const QuizWord = () => {
@@ -21,7 +22,7 @@ const QuizWord = () => {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [dataReady, setDataReady] = useState(false);
   const [score, setScore] = useState(0);
-  const [answered, setAnswered] = useState<'correct' | 'wrong' | ''>('');
+  const [answered, setAnswered] = useState<Answered>(Answered.NOT_ANSWERED);
 
   const hasPageBeenRendered = useRef(false);
 
@@ -81,9 +82,9 @@ const QuizWord = () => {
   const answerClicked = (isCorrect: boolean) => {
     if (isCorrect) {
       setScore(prevState => prevState + 1);
-      setAnswered('correct');
+      setAnswered(Answered.CORRECT);
     } else {
-      setAnswered('wrong');
+      setAnswered(Answered.WRONG);
     }
   }
 
@@ -94,7 +95,7 @@ const QuizWord = () => {
     hasPageBeenRendered.current = false;
     setDataReady(false);
     getRandomWord();
-    setAnswered('');
+    setAnswered(Answered.NOT_ANSWERED);
   }
 
   const restart = () => {
@@ -104,7 +105,7 @@ const QuizWord = () => {
     hasPageBeenRendered.current = false;
     setDataReady(false);
     getRandomWord();
-    setAnswered('');
+    setAnswered(Answered.NOT_ANSWERED);
     setScore(0);
   }
 
@@ -112,7 +113,7 @@ const QuizWord = () => {
     <Question currentQuestion={currentQuestion} />
     <Answers answers={answers} answered={answered} answerClicked={answerClicked} />
     <Score answered={answered} score={score} />
-    <Btn text={answered === 'correct' ? 'Next Question' : 'Restart'} clickHandle={answered === 'correct' ? getNextQuestion : restart} />
+    <Btn text={answered === Answered.CORRECT ? 'Next Question' : 'Restart'} clickHandle={answered === Answered.CORRECT ? getNextQuestion : restart} />
   </>
 
   return (

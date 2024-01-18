@@ -12,6 +12,8 @@ import shuffle from '../../utils/js/shuffle';
 import Answer from '@/utils/interfaces/Answer';
 
 import styles from './QuizDefinition.module.scss';
+import Answered from '@/utils/interfaces/Answered';
+
 
 
 const QuizDefinition = () => {
@@ -21,7 +23,7 @@ const QuizDefinition = () => {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [dataReady, setDataReady] = useState(false);
   const [score, setScore] = useState(0);
-  const [answered, setAnswered] = useState<'correct' | 'wrong' | ''>('');
+  const [answered, setAnswered] = useState<Answered>(Answered.NOT_ANSWERED);
 
   useEffect(() => {
     getRandomWord();
@@ -81,9 +83,9 @@ const QuizDefinition = () => {
   const answerClicked = (isCorrect: boolean) => {
     if (isCorrect) {
       setScore(prevState => prevState + 1);
-      setAnswered('correct');
+      setAnswered(Answered.CORRECT);
     } else {
-      setAnswered('wrong');
+      setAnswered(Answered.WRONG);
     }
   }
 
@@ -93,7 +95,7 @@ const QuizDefinition = () => {
     setAnswers([]);
     setDataReady(false);
     getRandomWord();
-    setAnswered('');
+    setAnswered(Answered.NOT_ANSWERED);
   }
 
   const restart = () => {
@@ -102,7 +104,7 @@ const QuizDefinition = () => {
     setAnswers([]);
     setDataReady(false);
     getRandomWord();
-    setAnswered('');
+    setAnswered(Answered.NOT_ANSWERED);
     setScore(0);
   }
 
