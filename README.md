@@ -8,4 +8,4 @@ React, NextJs, SCSS
 [https://dictionaryapi.dev/](https://dictionaryapi.dev/)
 
 # Preview
-soon
+[https://english-learning-games.vercel.app/](https://english-learning-games.vercel.app/)
