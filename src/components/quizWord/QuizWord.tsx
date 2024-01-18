@@ -44,7 +44,7 @@ const QuizWord = () => {
 
   const addWord = async (word: string) => {
     const definition = await getDefinitionApi(word);
-    if (await definition) {
+    if (definition) {
       if (!currentQuestion) {
         setCurrentQuestion(word);
         setAnswers([{

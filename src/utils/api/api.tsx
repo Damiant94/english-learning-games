@@ -41,16 +41,16 @@ export const getDefinitionApi = async (word: string): Promise<string | undefined
   }
 }
 
-export const getDefinitionsApi = async (word: string): Promise<Definitions[] | string[]> => {
+export const getDefinitionsApi = async (word: string): Promise<string[]> => {
   const messageError = "Sorry, couldn't find a definition";
   try {
     const response = await axios.get(definitionsUrl + word);
-    const definitions: Definitions[] = response.data[0].meanings
+    const definitions: string[] = response.data[0].meanings
       .reduce((acc: Definitions[], meaning: any) => {
         return acc.concat(meaning.definitions)
       }, [])
       .map((element: Definitions) => element.definition);
-      return definitions;
+    return definitions;
   } catch (error) {
     console.log(error);
     return [messageError];
