@@ -117,7 +117,7 @@ const quizDefinition = () => {
   return (
     <Layout>
       <div className={styles.QuizDefinitionMain}>
-        <Header text="english quiz definition" />
+        <Header text="definition quiz" />
         {dataReady ? view : <Spinner />}
       </div>
     </Layout>

@@ -23,12 +23,12 @@ export default function layout({
         </Link>
         <Link href="/quiz-word">
           <div className={[styles.Btn, pathname === '/quiz-word' && styles.ActivatedRoute].join(' ')}>
-            English Quiz Word
+            Word Quiz
           </div>
         </Link>
         <Link href="/quiz-definition">
           <div className={[styles.Btn, pathname === '/quiz-definition' && styles.ActivatedRoute].join(' ')}>
-            English Quiz Definition
+            Definition Quiz
           </div>
         </Link>
       </div>
