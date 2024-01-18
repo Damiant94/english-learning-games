@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import styles from './Btn.module.scss';
 
-const btn = (props: { text: string, clickHandle: () => void }) => {
+const Btn = (props: { text: string, clickHandle: () => void }) => {
 	return (
 		<div onClick={props.clickHandle} className={styles.Btn}>
 			{props.text}
@@ -9,4 +9,4 @@ const btn = (props: { text: string, clickHandle: () => void }) => {
 	);
 };
 
-export default memo(btn);
+export default memo(Btn);

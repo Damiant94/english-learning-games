@@ -1,5 +1,5 @@
 import QuizDefinition from "@/components/quizDefinition/QuizDefinition";
 
-export default function quizDefinitionIndex() {
+export default function QuizDefinitionIndex() {
   return <QuizDefinition />
 }

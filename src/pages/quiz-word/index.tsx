@@ -1,5 +1,5 @@
 import QuizWord from "@/components/quizWord/QuizWord";
 
-export default function quizWordIndex() {
+export default function QuizWordIndex() {
   return <QuizWord />
 }

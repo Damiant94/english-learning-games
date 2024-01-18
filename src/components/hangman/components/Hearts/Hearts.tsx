@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import classes from './Hearts.module.scss';
 import Heart from './Heart/Heart';
 
-const hearts = () => {
+const Hearts = () => {
     const heartsDivs = [];
 
     for (const i of [...Array(9).keys()]) {
@@ -16,4 +16,4 @@ const hearts = () => {
     );
 };
 
-export default memo(hearts);
+export default memo(Hearts);

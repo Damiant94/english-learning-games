@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import classes from './Letters.module.scss';
 import Letter from './Letter/Letter';
 
-const letters = (props: {clickHandle: (clickedLetter: any) => void}) => {
+const Letters = (props: {clickHandle: (clickedLetter: any) => void}) => {
     const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split("").map(letter => {
         return (
             <Letter 
@@ -20,4 +20,4 @@ const letters = (props: {clickHandle: (clickedLetter: any) => void}) => {
     );
 };
 
-export default memo(letters);
+export default memo(Letters);

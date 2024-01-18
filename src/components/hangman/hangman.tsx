@@ -18,7 +18,7 @@ import { getDefinitionsApi, getRandomWordApi } from '@/utils/api/api';
 import Layout from '../shared/Layout/Layout';
 
 
-const hangman = () => {
+const Hangman = () => {
 
   const [sentence, setSentence] = useState<string[]>([]);
   const [currentSentence, setCurrentSentence] = useState<string>('');
@@ -186,4 +186,4 @@ const hangman = () => {
 }
 
 
-export default hangman;
+export default Hangman;

@@ -1,7 +1,7 @@
 import React, {createRef, memo} from 'react';
 import classes from './Letter.module.scss';
 
-const letter = (props: {value: string, onClick: (letterBtn: HTMLButtonElement | null) => void}) => {
+const Letter = (props: {value: string, onClick: (letterBtn: HTMLButtonElement | null) => void}) => {
     let letterBtn = createRef<HTMLButtonElement>();
 
     return (
@@ -14,4 +14,4 @@ const letter = (props: {value: string, onClick: (letterBtn: HTMLButtonElement | 
     );
 };
 
-export default memo(letter);
+export default memo(Letter);

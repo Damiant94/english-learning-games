@@ -3,7 +3,7 @@ import classes from './Translation.module.scss';
 import { X } from '../../../../../public/X';
 import { Right } from '../../../../../public/Right';
 
-const translation = (props: {
+const Translation = (props: {
     show: boolean,
     change: () => void,
     definition: string,
@@ -60,4 +60,4 @@ const translation = (props: {
     );
 };
 
-export default translation;
+export default Translation;

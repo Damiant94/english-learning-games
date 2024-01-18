@@ -5,13 +5,13 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 
 
-export default function layout({
+export default function Layout({
   children,
 }: {
   children: React.ReactNode
 }) {
 
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <div className={styles.Layout}>

@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import classes from './Result.module.scss';
 
-const result = (props: {message: string, sentence: string, restart: () => void, classColor: string, resultClicked: () => void}) => {
+const Result = (props: {message: string, sentence: string, restart: () => void, classColor: string, resultClicked: () => void}) => {
 
     return (
         <div className={classes.Results}>
@@ -13,4 +13,4 @@ const result = (props: {message: string, sentence: string, restart: () => void, 
     );
 };
 
-export default memo(result);
+export default memo(Result);

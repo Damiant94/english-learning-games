@@ -14,7 +14,7 @@ import Answer from '@/utils/interfaces/Answer';
 import styles from './QuizDefinition.module.scss';
 
 
-const quizDefinition = () => {
+const QuizDefinition = () => {
 
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [randomWord, setRandomWord] = useState('');
@@ -125,4 +125,4 @@ const quizDefinition = () => {
 }
 
 
-export default quizDefinition;
+export default QuizDefinition;

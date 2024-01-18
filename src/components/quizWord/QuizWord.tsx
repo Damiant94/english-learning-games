@@ -14,7 +14,7 @@ import styles from './QuizWord.module.scss';
 import Layout from '../shared/Layout/Layout';
 
 
-const quizWord = () => {
+const QuizWord = () => {
 
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [randomWord, setRandomWord] = useState('');
@@ -126,4 +126,4 @@ const quizWord = () => {
 }
 
 
-export default quizWord;
+export default QuizWord;

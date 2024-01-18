@@ -1,5 +1,5 @@
 import Hangman from "@/components/hangman/Hangman";
 
-export default function hangmanindex() {
+export default function HangmanIndex() {
   return <Hangman />
 }

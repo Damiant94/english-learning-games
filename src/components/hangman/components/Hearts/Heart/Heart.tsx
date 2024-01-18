@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import classes from './Heart.module.scss';
 
 
-const heart = (props: {data: number}) => {
+const Heart = (props: {data: number}) => {
     return (
         <div className={classes.Heart} data-heart={props.data}>
             <img src="heart-full.svg" alt="Heart-full" />
@@ -11,4 +11,4 @@ const heart = (props: {data: number}) => {
     );
 };
 
-export default memo(heart);
+export default memo(Heart);

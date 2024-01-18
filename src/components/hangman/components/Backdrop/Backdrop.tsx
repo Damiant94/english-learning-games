@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Backdrop.module.scss';
 
-const backdrop = (props: {show: boolean}) => {
+const Backdrop = (props: {show: boolean}) => {
 
     const secondClassName = props.show ? classes.visible : classes.hidden;
 
@@ -10,4 +10,4 @@ const backdrop = (props: {show: boolean}) => {
     )
 };
 
-export default backdrop;
+export default Backdrop;
