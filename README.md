@@ -1,7 +1,7 @@
 # English Learning Games
 
 # Technologies
-React, NextJs, SCSS
+React, TypeScript, NextJs, SCSS
 
 # Apis used:
 [https://github.com/Damiant94/random-word-rest-api](https://github.com/Damiant94/random-word-rest-api)\
