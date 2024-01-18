@@ -18,7 +18,7 @@ export const getRandomWordApi = async (): Promise<string> => {
   }
 }
 
-export const get3RandomWordsApi = async (): Promise<[] | any> => {
+export const get3RandomWordsApi = async (): Promise<string[]> => {
   try {
     const response = await axios.get(`${randomWordUrl}s?number=3`);
     console.log("3 words taken from api");
@@ -31,7 +31,7 @@ export const get3RandomWordsApi = async (): Promise<[] | any> => {
   }
 }
 
-export const getDefinitionApi = async (word: string): Promise<string | any> => {
+export const getDefinitionApi = async (word: string): Promise<string | undefined> => {
   try {
     const response = await axios.get(definitionsUrl + word);
     return response.data[0].meanings[0].definitions[0].definition;
@@ -41,7 +41,7 @@ export const getDefinitionApi = async (word: string): Promise<string | any> => {
   }
 }
 
-export const getDefinitionsApi = async (word: string): Promise<any> => {
+export const getDefinitionsApi = async (word: string): Promise<Definitions[] | string[]> => {
   const messageError = "Sorry, couldn't find a definition";
   try {
     const response = await axios.get(definitionsUrl + word);

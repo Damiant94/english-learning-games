@@ -28,8 +28,8 @@ const Hangman = () => {
 
   const [sentence, setSentence] = useState<string[]>([]);
   const [currentSentence, setCurrentSentence] = useState<string>('');
-  const [definitions, setDefinitions] = useState<any>([]);
-  const [currentDefinition, setCurrentDefinition] = useState<any>('');
+  const [definitions, setDefinitions] = useState<string[]>([]);
+  const [currentDefinition, setCurrentDefinition] = useState<string>('');
   const [lives, setLives] = useState(9);
   const [status, setStatus] = useState<Status>(Status.PROGRESS);
   const [backdrop, setBackdrop] = useState(false);
@@ -89,11 +89,11 @@ const Hangman = () => {
     }
   };
 
-  const correctLetterHandle = (clickedLetter: any) => {
-    clickedLetter.classList.add(stylesLetter.Correct);
+  const correctLetterHandle = (clickedLetter: HTMLButtonElement | null) => {
+    clickedLetter!.classList.add(stylesLetter.Correct);
     let newCurrentSentence = "";
     for (const letter of sentence) {
-      if (letter === clickedLetter.innerHTML || letter === " " || currentSentence.includes(letter)) {
+      if (letter === clickedLetter!.innerHTML || letter === " " || currentSentence.includes(letter)) {
         newCurrentSentence += letter;
       } else {
         newCurrentSentence += "_";
@@ -105,8 +105,8 @@ const Hangman = () => {
     }
   };
 
-  const wrongLetterHandle = (clickedLetter: any) => {
-    clickedLetter.classList.add(stylesLetter.Wrong);
+  const wrongLetterHandle = (clickedLetter: HTMLButtonElement | null) => {
+    clickedLetter!.classList.add(stylesLetter.Wrong);
     document.querySelector(`[data-heart="${lives}"]`)!.className = stylesHeart.HeartLost;
 
     if (lives === 1) {
@@ -115,9 +115,9 @@ const Hangman = () => {
     setLives(prevState => prevState - 1)
   };
 
-  const letterClickHandler = (clickedLetter: any) => {
-    clickedLetter.disabled = true;
-    if (sentence.includes(clickedLetter.innerHTML)) {
+  const letterClickHandler = (clickedLetter: HTMLButtonElement | null) => {
+    clickedLetter!.disabled = true;
+    if (sentence.includes(clickedLetter!.innerHTML)) {
       correctLetterHandle(clickedLetter);
     } else {
       wrongLetterHandle(clickedLetter);
@@ -163,7 +163,7 @@ const Hangman = () => {
       <>
         <Translation
           definition={currentDefinition}
-          definitionsNumber={definitions ? definitions.length : null}
+          definitionsNumber={definitions.length > 0 ? definitions.length : 0}
           show={backdrop}
           change={changeDefinitionHandler}
           hide={hideDefinitionsHandler}

@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './Answers.module.scss';
 import Answer from '../../../utils/interfaces/Answer';
+import Answered from '@/utils/interfaces/Answered';
 
-const Answers = (props: {answers: Answer[], answered: "" | "correct" | "wrong", answerClicked: (answer: boolean) => void}) => {
+const Answers = (props: {answers: Answer[], answered: Answered, answerClicked: (answer: boolean) => void}) => {
 
   const answersJsx = <>
     {props.answers.map((answer: Answer, index: number) => {

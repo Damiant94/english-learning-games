@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import classes from './Letters.module.scss';
 import Letter from './Letter/Letter';
 
-const Letters = (props: {clickHandle: (clickedLetter: any) => void}) => {
+const Letters = (props: {clickHandle: (clickedLetter: HTMLButtonElement | null) => void}) => {
     const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split("").map(letter => {
         return (
             <Letter 
