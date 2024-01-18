@@ -1,3 +1,3 @@
 export default interface Definitions {
-    definition: string
-  }
+  definition: string
+}
