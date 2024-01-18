@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "./Layout.module.scss";
 import { usePathname } from 'next/navigation';
 import React from 'react';
+import inconsolata from '../../../styles/fonts';
 
 
 export default function Layout({
@@ -14,7 +15,7 @@ export default function Layout({
   const pathname = usePathname();
 
   return (
-    <div className={styles.Layout}>
+    <div className={styles.Layout} style={inconsolata.style}>
       <div className={styles.Menu}>
         <Link href="/hangman">
           <div className={[styles.Btn, pathname === '/hangman' && styles.ActivatedRoute].join(' ')}>
