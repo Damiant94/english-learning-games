@@ -89,24 +89,24 @@ const QuizWord = () => {
   }
 
   const getNextQuestion = () => {
+    hasPageBeenRendered.current = false;
     setCurrentQuestion('');
     setRandomWord('');
     setAnswers([]);
-    hasPageBeenRendered.current = false;
     setDataReady(false);
-    getRandomWord();
     setAnswered(Answered.NOT_ANSWERED);
+    getRandomWord();
   }
 
   const restart = () => {
+    hasPageBeenRendered.current = false;
     setCurrentQuestion('');
     setRandomWord('');
     setAnswers([]);
-    hasPageBeenRendered.current = false;
     setDataReady(false);
-    getRandomWord();
     setAnswered(Answered.NOT_ANSWERED);
     setScore(0);
+    getRandomWord();
   }
 
   const view = <>

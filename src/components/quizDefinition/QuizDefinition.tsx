@@ -94,8 +94,8 @@ const QuizDefinition = () => {
     setRandomWord('');
     setAnswers([]);
     setDataReady(false);
-    getRandomWord();
     setAnswered(Answered.NOT_ANSWERED);
+    getRandomWord();
   }
 
   const restart = () => {
@@ -103,9 +103,9 @@ const QuizDefinition = () => {
     setRandomWord('');
     setAnswers([]);
     setDataReady(false);
-    getRandomWord();
     setAnswered(Answered.NOT_ANSWERED);
     setScore(0);
+    getRandomWord();
   }
 
   const view = <>
