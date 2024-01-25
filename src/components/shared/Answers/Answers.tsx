@@ -19,7 +19,7 @@ const Answers = (props: {answers: Answer[], answered: Answered, answerClicked: (
   </>
 
   return (
-    <div className={styles.AnswerWrap}>
+    <div className={styles.Answers}>
       {answersJsx}
     </div>
   )
