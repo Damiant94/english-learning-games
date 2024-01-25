@@ -11,7 +11,7 @@ const Translation = (props: {
     sentence: string,
     hide: () => void
 }) => {
-
+    const dictionaryHref = 'https://dictionary.cambridge.org/dictionary/english/';
     const secondClassName = props.show ? classes.visible : classes.hidden;
 
     const buttonNext = props.definitionsNumber > 1 ? (
@@ -26,7 +26,7 @@ const Translation = (props: {
         return (
             <Fragment key={index}>
                 <a 
-                    href={`https://dictionary.cambridge.org/dictionary/english/${word}`} 
+                    href={`${dictionaryHref}${word}`} 
                     target="_blank"
                     rel="noreferrer">
                     {word}
@@ -40,13 +40,15 @@ const Translation = (props: {
         <div className={`${classes.Translation} ${secondClassName}`}>
             <div className={classes.Sentence}>
                 <a 
-                    href={`https://dictionary.cambridge.org/dictionary/english/${props.sentence}`} 
+                    href={`${dictionaryHref}${props.sentence}`} 
                     target="_blank"
                     rel="noreferrer">
                     {props.sentence}
                 </a>
             </div>
-            <div className={classes.Definition}>{definition}</div>
+            <div className={classes.Definition}>
+                {definition}
+            </div>
             <div className={classes.Icons}>
                 {buttonNext}
                 <div 
@@ -55,7 +57,6 @@ const Translation = (props: {
                         <X color="#d30cb8" />
                 </div>
             </div>
-
         </div>
     );
 };
