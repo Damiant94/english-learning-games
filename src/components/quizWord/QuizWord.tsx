@@ -71,7 +71,10 @@ const QuizWord = () => {
       if (answers.length < 4) {
         getRandomWord();
       } else {
-        setAnswers(prevState => shuffle(prevState));
+        setAnswers(prevState => {
+          shuffle(prevState);
+          return prevState;
+        });
         setDataReady(true);
       }
     }
