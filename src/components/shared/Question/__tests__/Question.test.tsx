@@ -5,13 +5,13 @@ import Question from '../Question';
 
 describe('Question', () => {
 
-    it('should have div with class .Question', () => {
-        const { container } = render(<Question currentQuestion=''/>);
-        const divQuestion = container.querySelector(".Question");
+    it('should have div with test-id question', () => {
+        render(<Question currentQuestion=''/>);
+        const divQuestion = screen.getByTestId("question");
         expect(divQuestion).toBeInTheDocument();
     });
 
-    it('should have div with class .Question', () => {
+    it('should have div with current question', () => {
         render(<Question currentQuestion='question'/>);
         const divQuestion = screen.getByText('question');
         expect(divQuestion).toBeInTheDocument();

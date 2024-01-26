@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Answers from '../Answers';
 import Answered from '@/utils/interfaces/Answered';
@@ -12,37 +12,37 @@ const answersMock = [
 
 describe('Answers', () => {
 
-    it('should have div with class .Answers', () => {
-        const { container } = render(
+    it('should have div with test-id answers', () => {
+        render(
             <Answers
                 answers={answersMock}
                 answered={Answered.CORRECT}
                 answerClicked={() => {}} />
         );
-        const divAnswers = container.querySelector(".Answers");
+        const divAnswers = screen.getByTestId("answers");
         expect(divAnswers).toBeInTheDocument();
     });
 
-    it('should have 4 divs with class .Answer', () => {
-        const { container } = render(
+    it('should have 4 divs with test-id answer', () => {
+        render(
             <Answers
                 answers={answersMock}
                 answered={Answered.CORRECT}
                 answerClicked={() => {}} />
         );
-        const divsAnswer = container.querySelectorAll(".Answer");
+        const divsAnswer = screen.getAllByTestId("answer");
         expect(divsAnswer.length).toBe(4);
     });
 
-    it('should have 3 divs with class .AnsweredWrong and 1 div with class .AnsweredCorrect', () => {
-        const { container } = render(
+    it('should have 3 divs with test-id answeredWrong and 1 div with test-id answeredCorrect', () => {
+        render(
             <Answers
                 answers={answersMock}
                 answered={Answered.CORRECT}
                 answerClicked={() => {}} />
         );
-        const divsAnswerCorrect = container.querySelectorAll(".AnsweredCorrect");
-        const divsAnswerWrong = container.querySelectorAll(".AnsweredWrong");
+        const divsAnswerCorrect = screen.getAllByTestId("answeredCorrect");
+        const divsAnswerWrong = screen.getAllByTestId("answeredWrong");
         expect(divsAnswerCorrect.length).toBe(1);
         expect(divsAnswerWrong.length).toBe(3);
     });

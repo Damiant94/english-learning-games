@@ -117,7 +117,7 @@ const QuizDefinition = () => {
 
   return (
     <Layout>
-      <div className={styles.QuizDefinitionMain}>
+      <div className={styles.QuizDefinitionMain} data-testid='quizDefinition'>
         <Header text="definition quiz" />
         {dataReady ? view : <Spinner />}
       </div>

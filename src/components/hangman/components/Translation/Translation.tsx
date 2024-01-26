@@ -13,11 +13,13 @@ const Translation = (props: {
 }) => {
     const dictionaryHref = 'https://dictionary.cambridge.org/dictionary/english/';
     const secondClassName = props.show ? classes.visible : classes.hidden;
+    const testId = props.show ? 'translationVisible' : 'translationHidden';
 
     const buttonNext = props.definitionsNumber > 1 ? (
         <div 
             className={`${classes.IconWrapper}`}
-            onClick={props.change}>
+            onClick={props.change}
+            data-testid="icon">
             <Right color="#d30cb8" />
         </div>
     ) : null;
@@ -28,7 +30,8 @@ const Translation = (props: {
                 <a 
                     href={`${dictionaryHref}${word}`} 
                     target="_blank"
-                    rel="noreferrer">
+                    rel="noreferrer"
+                    data-testid="anchor">
                     {word}
                 </a>
                 <span>{" "}</span>
@@ -37,7 +40,7 @@ const Translation = (props: {
     })
 
     return (
-        <div className={`${classes.Translation} ${secondClassName}`}>
+        <div className={`${classes.Translation} ${secondClassName}`} data-testid={testId}>
             <div className={classes.Sentence}>
                 <a 
                     href={`${dictionaryHref}${props.sentence}`} 
@@ -53,7 +56,8 @@ const Translation = (props: {
                 {buttonNext}
                 <div 
                     className={classes.IconWrapper} 
-                    onClick={props.hide}>
+                    onClick={props.hide}
+                    data-testid="icon">
                         <X color="#d30cb8" />
                 </div>
             </div>

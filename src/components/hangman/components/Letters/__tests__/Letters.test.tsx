@@ -4,15 +4,15 @@ import Letters from '../Letters';
 
 
 describe('Letters', () => {
-    it('should have div with class .Letters', () => {
-        const { container } = render(<Letters clickHandle={() => {}}/>);
-        const divLetters = container.querySelector(".Letters");
+    it('should have div with test-id letters', () => {
+        render(<Letters clickHandle={() => {}}/>);
+        const divLetters = screen.getByTestId("letters");
         expect(divLetters).toBeInTheDocument();
     });
 
-    it('should have 26 divs with class .Letter', () => {
-        const { container } = render(<Letters clickHandle={() => {}}/>);
-        const divsLetter = container.querySelectorAll(".Letter");
+    it('should have 26 divs with test-id letter', () => {
+        render(<Letters clickHandle={() => {}}/>);
+        const divsLetter = screen.getAllByTestId("letter");
         expect(divsLetter.length).toBe(26);
     });
     

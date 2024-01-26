@@ -4,14 +4,14 @@ import Hearts from '../Hearts';
 
 
 describe('Hearts', () => {
-    it('should have div with class .Hearts', () => {
-        const { container } = render(<Hearts />);
-        const divHearts = container.querySelector(".Hearts");
+    it('should have div with test-id hearts', () => {
+        render(<Hearts />);
+        const divHearts = screen.getByTestId('hearts');
         expect(divHearts).toBeInTheDocument();
     });
     it('should have 9 divs with class .Heart', () => {
-        const { container } = render(<Hearts />);
-        const divsHeart = container.querySelectorAll(".Heart")
+        render(<Hearts />);
+        const divsHeart = screen.getAllByTestId('heart')
         expect(divsHeart.length).toBe(9);
     });
 });

@@ -8,7 +8,8 @@ const Letter = (props: {value: string, onClick: (letterBtn: HTMLButtonElement | 
         <button
             className={classes.Letter} 
             ref={letterBtn} 
-            onClick={() => {props.onClick(letterBtn.current)}}>
+            onClick={() => {props.onClick(letterBtn.current)}}
+            data-testid='letter'>
                 {props.value}
         </button>
     );

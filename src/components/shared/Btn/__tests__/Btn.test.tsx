@@ -5,11 +5,11 @@ import Btn from '../Btn';
 
 describe('Btn', () => {
 
-    it('should have div with class .Btn', () => {
-        const { container } = render(
+    it('should have div with test-id btn', () => {
+        render(
             <Btn text='' clickHandle={() => {}}/>
         );
-        const divBtn = container.querySelector(".Btn");
+        const divBtn = screen.getByTestId("btn");
         expect(divBtn).toBeInTheDocument();
     });
 

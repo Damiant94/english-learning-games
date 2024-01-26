@@ -182,7 +182,7 @@ const Hangman = () => {
 
   return (
     <Layout>
-      <div className={styles.HangmanMain}>
+      <div className={styles.HangmanMain} data-testid='hangman'>
         <Header text="the hangman game" />
         <Hearts />
         {sentence.length > 0 ? view : <Spinner />}

@@ -14,7 +14,7 @@ const Letters = (props: {clickHandle: (clickedLetter: HTMLButtonElement | null) 
     });
 
     return (
-        <div className={classes.Letters}>
+        <div className={classes.Letters} data-testid='letters'>
             {allLetters}
         </div>
     );

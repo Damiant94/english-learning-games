@@ -10,7 +10,7 @@ const Hearts = () => {
     }
 
     return (
-        <div className={classes.Hearts}>
+        <div className={classes.Hearts} data-testid='hearts'>
             {heartsDivs}
         </div>
     );

@@ -3,7 +3,7 @@ import classes from './Sentence.module.scss';
 
 const Sentence = (props: {currentSentence: string}) => {    
     return (
-        <div className={classes.Sentence}>{props.currentSentence}</div>
+        <div className={classes.Sentence} data-testid='sentence'>{props.currentSentence}</div>
     );
 };
 

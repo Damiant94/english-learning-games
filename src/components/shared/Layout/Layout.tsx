@@ -15,7 +15,7 @@ export default function Layout({
   const pathname = usePathname();
 
   return (
-    <div className={styles.Layout} style={inconsolata.style}>
+    <div className={styles.Layout} style={inconsolata.style} data-testid='layout'>
       <div className={styles.Menu}>
         <Link href="/hangman">
           <div className={[styles.Btn, pathname === '/hangman' && styles.ActivatedRoute].join(' ')}>

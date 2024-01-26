@@ -4,8 +4,8 @@ import Translation from '../Translation';
 
 
 describe('Translation', () => {
-    it('should have div with class .Translation.visible', () => {
-        const { container } = render(
+    it('should have div with test-id translationVisible', () => {
+        render(
             <Translation
                 show={true}
                 change={() => { }}
@@ -14,12 +14,12 @@ describe('Translation', () => {
                 sentence=''
                 hide={() => { }} />
         );
-        const divTranslationVisible = container.querySelector(".Translation.visible");
+        const divTranslationVisible = screen.getByTestId("translationVisible");
         expect(divTranslationVisible).toBeInTheDocument();
     });
 
     it('should have div with class .Translation.hidden', () => {
-        const { container } = render(
+        render(
             <Translation
                 show={false}
                 change={() => { }}
@@ -28,12 +28,12 @@ describe('Translation', () => {
                 sentence=''
                 hide={() => { }} />
         );     
-        const divTranslationHidden = container.querySelector(".Translation.hidden");
+        const divTranslationHidden = screen.getByTestId("translationHidden");
         expect(divTranslationHidden).toBeInTheDocument();
     });
 
-    it('should have 4 anchors in .Definition container', () => {
-        const { container } = render(
+    it('should have 4 anchors with test id anchor', () => {
+        render(
             <Translation
                 show={true}
                 change={() => { }}
@@ -42,12 +42,12 @@ describe('Translation', () => {
                 sentence=''
                 hide={() => { }} />
         );
-        const anchors = container.querySelectorAll(".Definition a");
+        const anchors = screen.getAllByTestId("anchor");
         expect(anchors.length).toBe(4);
     });
 
     it('should have 1 div with class .IconWrapper', () => {
-        const { container } = render(
+        render(
             <Translation
                 show={true}
                 change={() => { }}
@@ -56,12 +56,12 @@ describe('Translation', () => {
                 sentence=''
                 hide={() => { }} />
         );
-        const divsIconWrapper = container.querySelectorAll("div.IconWrapper");
+        const divsIconWrapper = screen.getAllByTestId("icon");
         expect(divsIconWrapper.length).toBe(1);
     });
 
     it('should have 2 divs with class .IconWrapper', () => {
-        const { container } = render(
+        render(
             <Translation
                 show={true}
                 change={() => { }}
@@ -70,7 +70,7 @@ describe('Translation', () => {
                 sentence=''
                 hide={() => { }} />
         );
-        const divsIconWrapper = container.querySelectorAll("div.IconWrapper");
+        const divsIconWrapper = screen.getAllByTestId("icon");
         expect(divsIconWrapper.length).toBe(2);
     });
 

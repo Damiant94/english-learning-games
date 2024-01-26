@@ -121,7 +121,7 @@ const QuizWord = () => {
 
   return (
     <Layout>
-      <div className={styles.QuizWordMain}>
+      <div className={styles.QuizWordMain} data-testid='quizWord'>
         <Header text="word quiz" />
         {dataReady ? view : <Spinner />}
       </div>

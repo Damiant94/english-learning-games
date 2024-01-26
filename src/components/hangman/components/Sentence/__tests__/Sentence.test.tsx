@@ -4,9 +4,9 @@ import Sentence from '../Sentence';
 
 
 describe('Sentence', () => {
-    it('should have div with class .Sentence', () => {
-        const { container } = render(<Sentence currentSentence=''/>);
-        const divSentence = container.querySelector(".Sentence");
+    it('should have div with test-id sentence', () => {
+        render(<Sentence currentSentence=''/>);
+        const divSentence = screen.getByTestId("sentence");
         expect(divSentence).toBeInTheDocument();
     });
 

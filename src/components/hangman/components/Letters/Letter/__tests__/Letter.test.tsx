@@ -5,9 +5,9 @@ import Letter from '../Letter';
 
 
 describe('Letter', () => {
-    it('should have btn with class .Letter', () => {
-        const { container } = render(<Letter value='a' onClick={() => {}}/>);
-        const buttonLetter = container.querySelector("button.Letter");
+    it('should have btn with test-id letter', () => {
+        render(<Letter value='a' onClick={() => {}}/>);
+        const buttonLetter = screen.getByTestId("letter");
         expect(buttonLetter).toBeInTheDocument();
     });
 

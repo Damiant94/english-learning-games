@@ -4,14 +4,14 @@ import Backdrop from '../Backdrop';
 
 
 describe('Backdrop', () => {
-    it('should have div with class .Backdrop.visible', () => {
-        const { container } = render(<Backdrop show={true}/>);
-        const divBackdropVisible = container.querySelector(".Backdrop.visible");
+    it('should have div with test-id backdrop-visible', () => {
+        render(<Backdrop show={true}/>);
+        const divBackdropVisible = screen.getByTestId("backdrop-visible");
         expect(divBackdropVisible).toBeInTheDocument();
     });
-    it('should have div with class .Backdrop.hidden', () => {
-        const { container } = render(<Backdrop show={false}/>);
-        const divBackdropHidden = container.querySelector(".Backdrop.hidden");
+    it('should have div with test-id backdrop-hidden', () => {
+        render(<Backdrop show={false}/>);
+        const divBackdropHidden = screen.getByTestId("backdrop-hidden");
         expect(divBackdropHidden).toBeInTheDocument();
     });
 });

@@ -5,9 +5,9 @@ import Header from '../Header';
 
 describe('Header', () => {
 
-    it('should have div with class .Answers', () => {
-        const { container } = render(<Header text=''/>);
-        const divHeader = container.querySelector(".Header");
+    it('should have div with test-id header', () => {
+        render(<Header text=''/>);
+        const divHeader = screen.getByTestId("header");
         expect(divHeader).toBeInTheDocument();
     });
 

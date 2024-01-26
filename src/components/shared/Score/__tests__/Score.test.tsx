@@ -6,27 +6,27 @@ import Answered from '@/utils/interfaces/Answered';
 
 describe('Score', () => {
 
-    it('should have div with class .Score', () => {
-        const { container } = render(<Score answered={Answered.CORRECT} score={1} />);
-        const divScore = container.querySelector(".Score");
+    it('should have div with test-id score', () => {
+        render(<Score answered={Answered.CORRECT} score={1} />);
+        const divScore = screen.getByTestId("score");
         expect(divScore).toBeInTheDocument();
     });
 
-    it('should have div with class .Correct', () => {
-        const { container } = render(<Score answered={Answered.CORRECT} score={1} />);
-        const divCorrect = container.querySelector(".Correct");
+    it('should have div with test-id correct', () => {
+        render(<Score answered={Answered.CORRECT} score={1} />);
+        const divCorrect = screen.getByTestId("correct");
         expect(divCorrect).toBeInTheDocument();
     });
 
-    it('should not have div with class .Correct', () => {
-        const { container } = render(<Score answered={Answered.WRONG} score={1} />);
-        const divCorrect = container.querySelector(".Correct");
+    it('should not have div with test-id correct', () => {
+        render(<Score answered={Answered.WRONG} score={1} />);
+        const divCorrect = screen.queryByTestId(".Correct");
         expect(divCorrect).not.toBeInTheDocument();
     });
 
-    it('should have div with class .Wrong', () => {
-        const { container } = render(<Score answered={Answered.WRONG} score={1} />);
-        const divWrong = container.querySelector(".Wrong");
+    it('should have div with test-id wrong', () => {
+        render(<Score answered={Answered.WRONG} score={1} />);
+        const divWrong = screen.queryByTestId("wrong");
         expect(divWrong).toBeInTheDocument();
     });
 
@@ -36,10 +36,10 @@ describe('Score', () => {
         expect(divScore).toBeInTheDocument();
     });
 
-    it('should not have div with class .Correct or .Wrong', () => {
-        const { container } = render(<Score answered={Answered.NOT_ANSWERED} score={5} />);
-        const divCorrect = container.querySelector(".Correct");
-        const divWrong = container.querySelector(".Wrong");
+    it('should not have div with test-id correct or wrong', () => {
+        render(<Score answered={Answered.NOT_ANSWERED} score={5} />);
+        const divCorrect = screen.queryByTestId("correct");
+        const divWrong = screen.queryByTestId("crong");
         expect(divCorrect).not.toBeInTheDocument();
         expect(divWrong).not.toBeInTheDocument();
     });

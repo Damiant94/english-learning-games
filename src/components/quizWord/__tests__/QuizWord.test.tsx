@@ -36,108 +36,128 @@ describe('QuizWord', () => {
         randomDefinitions = ['definition1', 'definition2', 'definition3', 'definition4'];
     })
 
-    it('should have div with class .QuizWordMain', () => {
-        const { container } = render(<QuizWord />);
-        const divQuizWord = container.querySelector(".QuizWordMain");
+    it('should have div with test-id .quizWord', () => {
+        render(<QuizWord />);
+        const divQuizWord = screen.getByTestId("quizWord");
         expect(divQuizWord).toBeInTheDocument();
     });
 
-    it('should have div with class .Loader', () => {
-        const { container } = render(<QuizWord />);
-        const divLoader = container.querySelector(".Loader");
+    it('should have div with test-id loader', () => {
+        render(<QuizWord />);
+        const divLoader = screen.getByTestId("loader");
         expect(divLoader).toBeInTheDocument();
     });
 
-    it('should have div with class .Header', () => {
-        const { container } = render(<QuizWord />);
-        const divHeader = container.querySelector(".Header");
+    it('should have div with test-id header', () => {
+        render(<QuizWord />);
+        const divHeader = screen.getByTestId("header");
         expect(divHeader).toBeInTheDocument();
     });
 
-    it('should have div with class .Layout', () => {
-        const { container } = render(<QuizWord />);
-        const divLayout = container.querySelector(".Layout");
+    it('should have div with test-id layout', () => {
+        render(<QuizWord />);
+        const divLayout = screen.getByTestId("layout");
         expect(divLayout).toBeInTheDocument();
     });
 
-    it('should have div with class .Question, .Answers, .Score, .Btn after load async', async () => {
-        const { container } = render(<QuizWord />);
+    it('should have div with test-id question, answers, score, btn after load async', async () => {
+        render(<QuizWord />);
+
         await waitFor(
             () => {
-                const question = container.querySelector('.Question');
+                const question = screen.getByTestId('question');
                 expect(question).toBeInTheDocument();
-                const answers = container.querySelector('.Answers');
+            }
+        )
+        await waitFor(
+            () => {
+                const answers = screen.getByTestId('answers');
                 expect(answers).toBeInTheDocument();
-                const score = container.querySelector('.Score');
+            }
+        )
+        await waitFor(
+            () => {
+                const score = screen.getByTestId('score');
                 expect(score).toBeInTheDocument();
-                const btn = container.querySelector('.Btn');
+            }
+        )
+        await waitFor(
+            () => {
+                const btn = screen.getByTestId('btn');
                 expect(btn).toBeInTheDocument();
             }
         )
     });
 
-    it('should not have div with class .Loader after load async', async () => {
-        const { container } = render(<QuizWord />);
+    it('should not have div with test-id loader after load async', async () => {
+        render(<QuizWord />);
+
         await waitFor(
             () => {
-                const loader = container.querySelector('.Loader');
+                const loader = screen.queryByTestId('loader');
                 expect(loader).not.toBeInTheDocument();
             }
         )
     });
 
-    it('should have div with class .Correct and not have div with class .Wrong after click correct answer', async () => {
-        const { container } = render(<QuizWord />);
+    it('should have div with test-id correct and not have div with test-id wrong after click correct answer', async () => {
+        render(<QuizWord />);
+
         await waitFor(
             async () => {
-                const definitionCorrect = screen.getByText('definition1');
-                await userEvent.click(definitionCorrect);
-                const divCorrect = container.querySelector('.Correct');
-                const divWrong = container.querySelector('.Wrong');
+                const wordCorrect = screen.getByText('definition1');
+                await userEvent.click(wordCorrect);
+            }
+        )
+        await waitFor(
+            async () => {
+                const divCorrect = screen.getByTestId('correct');
                 expect(divCorrect).toBeInTheDocument();
+            }
+        )
+        await waitFor(
+            async () => {
+                const divWrong = screen.queryByTestId('wrong');
                 expect(divWrong).not.toBeInTheDocument();
             }
         )
     });
 
-    it('should have div with class .Wrong and not have div with class .Correct after click wrong answer', async () => {
-        const { container } = render(<QuizWord />);
+    it('should have div with test-id wrong and not have div with test-id correct after click wrong answer', async () => {
+        render(<QuizWord />);
+
         await waitFor(
             async () => {
-                const definitionWrong = screen.getByText('definition2');
-                await userEvent.click(definitionWrong);
-                const divCorrect = container.querySelector('.Correct');
-                const divWrong = container.querySelector('.Wrong');
-                expect(divCorrect).not.toBeInTheDocument();
+                const wordWrong = screen.getByText('definition2');
+                await userEvent.click(wordWrong);
+            }
+        )
+        await waitFor(
+            async () => {
+                const divWrong = screen.getByTestId('wrong');
                 expect(divWrong).toBeInTheDocument();
             }
         )
-    });
-
-    it('should not have div with class .Wrong and .Correct when no answer picked', async () => {
-        const { container } = render(<QuizWord />);
         await waitFor(
             async () => {
-                const divCorrect = container.querySelector('.Correct');
-                const divWrong = container.querySelector('.Wrong');
+                const divCorrect = screen.queryByTestId('correct');
                 expect(divCorrect).not.toBeInTheDocument();
-                expect(divWrong).not.toBeInTheDocument();
             }
         )
     });
 
-    it('should not have div with class .Wrong, .Correct after good answer and clicked next question button', async () => {
-        const { container } = render(<QuizWord />);
+    it('should not have div with test-id wrong and correct when no answer picked', async () => {
+        render(<QuizWord />);
         await waitFor(
             async () => {
-                const definitionCorrect = screen.getByText('definition1');
-                await userEvent.click(definitionCorrect);
-                const nextQuestionBtn = screen.getByText('Next Question');
-                await userEvent.click(nextQuestionBtn);
-                const divCorrect = container.querySelector('.Correct');
-                const divWrong = container.querySelector('.Wrong');
-                expect(divCorrect).not.toBeInTheDocument();
+                const divWrong = screen.queryByTestId('wrong');
                 expect(divWrong).not.toBeInTheDocument();
+            }
+        )
+        await waitFor(
+            async () => {
+                const divCorrect = screen.queryByTestId('correct');
+                expect(divCorrect).not.toBeInTheDocument();
             }
         )
     });

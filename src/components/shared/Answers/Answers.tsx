@@ -11,15 +11,16 @@ const Answers = (props: {answers: Answer[], answered: Answered, answerClicked: (
         <div 
           key={index}
           className={`${styles.Answer} ${props.answered && answer.isCorrect && styles.AnsweredCorrect} ${props.answered && !answer.isCorrect && styles.AnsweredWrong}`}
-          onClick={() => props.answerClicked(answer.isCorrect)}>
-            {answer.answer}
+          onClick={() => props.answerClicked(answer.isCorrect)}
+          data-testid="answer">
+            <p data-testid={answer.isCorrect ? 'answeredCorrect' : 'answeredWrong'}>{answer.answer}</p>
         </div>
       )
     })}
   </>
 
   return (
-    <div className={styles.Answers}>
+    <div className={styles.Answers} data-testid='answers'>
       {answersJsx}
     </div>
   )
