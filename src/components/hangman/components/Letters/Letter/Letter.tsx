@@ -9,7 +9,8 @@ const Letter = (props: {value: string, onClick: (letterBtn: HTMLButtonElement | 
             className={classes.Letter} 
             ref={letterBtn} 
             onClick={() => {props.onClick(letterBtn.current)}}
-            data-testid='letter'>
+            data-testid='letter'
+            data-value={props.value.toLowerCase()}>
                 {props.value}
         </button>
     );

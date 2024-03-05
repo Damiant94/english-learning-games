@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { KeyboardEvent, useEffect, useState } from 'react';
 import Hearts from './components/Hearts/Hearts';
 import Sentence from './components/Sentence/Sentence';
 import Letters from './components/Letters/Letters';
@@ -44,11 +44,30 @@ const Hangman = () => {
     setBackdrop(false);
   };
 
+  const checkIfIsLetter = (letter: string) => {
+    return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.includes(letter.toUpperCase());
+  }
+
+  const handleKeydown = (event: globalThis.KeyboardEvent) => {
+    if (checkIfIsLetter(event.key)) {
+      const letter = document.querySelector(`button[data-value="${event.key}"]`) as HTMLButtonElement;
+      if (!letter.classList.contains(stylesLetter.Correct) && !letter.classList.contains(stylesLetter.Wrong)) {
+        letterClickHandler(letter);
+      }
+    }
+  }
+
+  useEffect(() => {
+    document.body.addEventListener('keydown', handleKeydown)
+    return () => {
+      document.body.removeEventListener('keydown', handleKeydown)
+    }
+  })
+
   const setNewSentence = (sentence: string[]) => {
-    const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let currentSentence = "";
     for (const letter of sentence) {
-      if (allLetters.includes(letter)) {
+      if (checkIfIsLetter(letter)) {
         currentSentence += "_";
       } else {
         currentSentence += letter;

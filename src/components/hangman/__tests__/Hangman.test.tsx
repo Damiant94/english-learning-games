@@ -167,4 +167,76 @@ describe('Hangman', () => {
             }
         )
     });
+
+    it('should have div with data-id Win after type on keyboard correct letters', async () => {
+        render(<Hangman />);
+        await waitFor(
+            async () => {
+                const buttonLetterW = screen.getByText('W');
+                await userEvent.keyboard("{w}");
+                expect(buttonLetterW).toBeDisabled();
+            }
+        )
+        await waitFor(
+            async () => {
+                const buttonLetterO = screen.getByText('O');
+                await userEvent.keyboard("{o}");
+                expect(buttonLetterO).toBeDisabled();
+            }
+        )
+        await waitFor(
+            async () => {
+                const buttonLetterR = screen.getByText('R');
+                await userEvent.keyboard("{r}");
+                expect(buttonLetterR).toBeDisabled();
+            }
+        )
+        await waitFor(
+            async () => {
+                await userEvent.keyboard("{d}");
+            }
+        )
+        await waitFor(
+            async () => {
+                const divWin = screen.getByTestId('Win');
+                expect(divWin).toBeInTheDocument();
+            }
+        )
+    });
+
+    it('should have div with data-id Win after type on keyboard and click correct letters', async () => {
+        render(<Hangman />);
+        await waitFor(
+            async () => {
+                const buttonLetterW = screen.getByText('W');
+                await userEvent.keyboard("{w}");
+                expect(buttonLetterW).toBeDisabled();
+            }
+        )
+        await waitFor(
+            async () => {
+                const buttonLetterO = screen.getByText('O');
+                await userEvent.click(buttonLetterO);
+                expect(buttonLetterO).toBeDisabled();
+            }
+        )
+        await waitFor(
+            async () => {
+                const buttonLetterR = screen.getByText('R');
+                await userEvent.keyboard("{r}");
+                expect(buttonLetterR).toBeDisabled();
+            }
+        )
+        await waitFor(
+            async () => {
+                await userEvent.keyboard("{d}");
+            }
+        )
+        await waitFor(
+            async () => {
+                const divWin = screen.getByTestId('Win');
+                expect(divWin).toBeInTheDocument();
+            }
+        )
+    });
 });
