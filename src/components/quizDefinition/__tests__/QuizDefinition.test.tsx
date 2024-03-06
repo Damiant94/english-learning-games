@@ -81,6 +81,11 @@ describe('QuizDefinition', () => {
             () => {
                 const btns = screen.getAllByTestId('btn');
                 expect(btns[0]).toBeInTheDocument();
+            }
+        )
+        await waitFor(
+            () => {
+                const btns = screen.getAllByTestId('btn');
                 expect(btns[1]).toBeInTheDocument();
             }
         )
