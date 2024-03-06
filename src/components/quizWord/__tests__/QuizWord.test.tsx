@@ -83,8 +83,9 @@ describe('QuizWord', () => {
         )
         await waitFor(
             () => {
-                const btn = screen.getByTestId('btn');
-                expect(btn).toBeInTheDocument();
+                const btns = screen.getAllByTestId('btn');
+                expect(btns[0]).toBeInTheDocument();
+                expect(btns[1]).toBeInTheDocument();
             }
         )
     });

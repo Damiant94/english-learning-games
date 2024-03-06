@@ -10,7 +10,7 @@ const Answers = (props: {answers: Answer[], answered: Answered, answerClicked: (
       return (
         <div 
           key={index}
-          className={`${styles.Answer} ${props.answered && answer.isCorrect && styles.AnsweredCorrect} ${props.answered && !answer.isCorrect && styles.AnsweredWrong}`}
+          className={`${styles.Answer} ${!answer.isActive && styles.AnswerInactive} ${props.answered && answer.isCorrect && styles.AnsweredCorrect} ${props.answered && !answer.isCorrect && styles.AnsweredWrong}`}
           onClick={() => props.answerClicked(answer.isCorrect)}
           data-testid="answer">
             <p data-testid={answer.isCorrect ? 'answeredCorrect' : 'answeredWrong'}>{answer.answer}</p>

@@ -1,4 +1,5 @@
 export default interface Answer {
   answer: string,
-  isCorrect: boolean
+  isCorrect: boolean,
+  isActive: boolean
 }

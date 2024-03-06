@@ -9,6 +9,7 @@ import Layout from '../shared/Layout/Layout';
 
 import { get3RandomWordsApi, getDefinitionApi, getRandomWordApi } from '@/utils/api/api';
 import shuffle from '../../utils/js/shuffle';
+import getRandomInt from '@/utils/js/getRandomInt';
 import Answer from '@/utils/interfaces/Answer';
 
 import styles from './QuizDefinition.module.scss';
@@ -24,6 +25,7 @@ const QuizDefinition = () => {
   const [dataReady, setDataReady] = useState(false);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState<Answered>(Answered.NOT_ANSWERED);
+  const [is5050used, setIs5050used] = useState(false);
 
   useEffect(() => {
     getRandomWord();
@@ -47,7 +49,8 @@ const QuizDefinition = () => {
       setCurrentQuestion(definition as string);
       setAnswers([{
         answer: word,
-        isCorrect: true
+        isCorrect: true,
+        isActive: true
       }]);
     } else {
       getRandomWord();
@@ -65,7 +68,7 @@ const QuizDefinition = () => {
     const randomWords = await get3RandomWordsApi();
     setAnswers(prevState => {
       const newWordsAnswers = randomWords.map((word: string) => {
-        return { answer: word, isCorrect: false };
+        return { answer: word, isCorrect: false, isActive: true };
       })
       const finalWords = prevState.concat(newWordsAnswers);
       shuffle(finalWords)
@@ -78,7 +81,7 @@ const QuizDefinition = () => {
       setDataReady(true);
     };
   },
-    [answers])
+    [answers.length])
 
   const answerClicked = (isCorrect: boolean) => {
     if (isCorrect) {
@@ -87,6 +90,34 @@ const QuizDefinition = () => {
     } else {
       setAnswered(Answered.WRONG);
     }
+  }
+
+  const disableTwoWrongAnswers = (answers: Answer[]) => {
+    const indices = [0, 1, 2, 3];
+    let correctIndex: number;
+    for (let i = 0; i < answers.length; i++) {
+      if (answers[i].isCorrect === true) {
+        correctIndex = i;
+        break;
+      }
+    };
+    const wrongIndices = indices.filter(index => {
+      return index !== correctIndex;
+    });
+    const randomIndex = getRandomInt(wrongIndices.length);
+    wrongIndices.splice(randomIndex, 1);
+    wrongIndices.forEach(index => {
+      answers[index].isActive = false;
+    });
+    return [...answers];
+  }
+
+  const use5050 = () => {
+    setAnswers(prevState => {
+      const newAnswers = disableTwoWrongAnswers(prevState);
+      return newAnswers;
+    });
+    setIs5050used(true);
   }
 
   const getNextQuestion = () => {
@@ -99,18 +130,15 @@ const QuizDefinition = () => {
   }
 
   const restart = () => {
-    setCurrentQuestion('');
-    setRandomWord('');
-    setAnswers([]);
-    setDataReady(false);
-    setAnswered(Answered.NOT_ANSWERED);
+    getNextQuestion();
     setScore(0);
-    getRandomWord();
+    setIs5050used(false);
   }
 
   const view = <>
     <Question currentQuestion={currentQuestion} />
     <Answers answers={answers} answered={answered} answerClicked={answerClicked} />
+    <Btn text='50/50' clickHandle={use5050} isUsed={is5050used} status={answered} />
     <Score answered={answered} score={score} />
     <Btn text={answered === Answered.CORRECT ? 'Next Question' : 'Restart'} clickHandle={answered === Answered.CORRECT ? getNextQuestion : restart} />
   </>
