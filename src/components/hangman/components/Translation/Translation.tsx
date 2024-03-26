@@ -1,34 +1,44 @@
-import React, {Fragment} from 'react';
+import React, { Fragment, useContext } from 'react';
 import classes from './Translation.module.scss';
 import { X } from '../../../../../public/X';
 import { Right } from '../../../../../public/Right';
+import { BackdropContext, DefinitionsContext, SentenceContext } from '../../Hangman';
 
-const Translation = (props: {
-    show: boolean,
-    change: () => void,
-    definition: string,
-    definitionsNumber: number,
-    sentence: string,
-    hide: () => void
-}) => {
+const Translation = () => {
+    const { isBackdrop, setIsBackdrop } = useContext(BackdropContext)
+
     const dictionaryHref = 'https://dictionary.cambridge.org/dictionary/english/';
-    const secondClassName = props.show ? classes.visible : classes.hidden;
-    const testId = props.show ? 'translationVisible' : 'translationHidden';
+    const secondClassName = isBackdrop ? classes.visible : classes.hidden;
+    const testId = isBackdrop ? 'translationVisible' : 'translationHidden';
 
-    const buttonNext = props.definitionsNumber > 1 ? (
-        <div 
+    const { definitions, currentDefinition, setCurrentDefinition } = useContext(DefinitionsContext);
+    const sentence = useContext(SentenceContext)
+
+    const changeDefinitionHandler = () => {
+        const definitionsNumber = definitions.length;
+        const currentDefinitionIndex = definitions.indexOf(currentDefinition);
+        const newDefinitionIndex = definitionsNumber - 1 !== currentDefinitionIndex ? currentDefinitionIndex + 1 : 0;
+        setCurrentDefinition(definitions[newDefinitionIndex]);
+    };
+
+    const hideDefinitionsHandler = () => {
+        setIsBackdrop(false);
+      }
+
+    const buttonNext = definitions.length > 1 ? (
+        <div
             className={`${classes.IconWrapper}`}
-            onClick={props.change}
+            onClick={changeDefinitionHandler}
             data-testid="icon">
             <Right color="#d30cb8" />
         </div>
     ) : null;
 
-    const definition = props.definition?.split(" ").map((word, index) => {
+    const definition = currentDefinition?.split(" ").map((word, index) => {
         return (
             <Fragment key={index}>
-                <a 
-                    href={`${dictionaryHref}${word}`} 
+                <a
+                    href={`${dictionaryHref}${word}`}
                     target="_blank"
                     rel="noreferrer"
                     data-testid="anchor">
@@ -42,11 +52,11 @@ const Translation = (props: {
     return (
         <div className={`${classes.Translation} ${secondClassName}`} data-testid={testId}>
             <div className={classes.Sentence}>
-                <a 
-                    href={`${dictionaryHref}${props.sentence}`} 
+                <a
+                    href={`${dictionaryHref}${sentence}`}
                     target="_blank"
                     rel="noreferrer">
-                    {props.sentence}
+                    {sentence}
                 </a>
             </div>
             <div className={classes.Definition}>
@@ -54,11 +64,11 @@ const Translation = (props: {
             </div>
             <div className={classes.Icons}>
                 {buttonNext}
-                <div 
-                    className={classes.IconWrapper} 
-                    onClick={props.hide}
+                <div
+                    className={classes.IconWrapper}
+                    onClick={hideDefinitionsHandler}
                     data-testid="icon">
-                        <X color="#d30cb8" />
+                    <X color="#d30cb8" />
                 </div>
             </div>
         </div>

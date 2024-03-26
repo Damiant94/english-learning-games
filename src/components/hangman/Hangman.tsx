@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import Hearts from './components/Hearts/Hearts';
 import Sentence from './components/Sentence/Sentence';
 import Letters from './components/Letters/Letters';
@@ -23,6 +23,25 @@ enum Status {
   LOSE = 'lose'
 }
 
+export const DefinitionsContext = createContext<{
+  definitions: string[],
+  currentDefinition: string,
+  setCurrentDefinition: React.Dispatch<React.SetStateAction<string>>
+}>({
+  definitions: [""],
+  currentDefinition: "",
+  setCurrentDefinition: () => { }
+})
+
+export const SentenceContext = createContext([""])
+export const BackdropContext = createContext<{
+  isBackdrop: boolean,
+  setIsBackdrop: React.Dispatch<React.SetStateAction<boolean>>
+}>({
+  isBackdrop: false,
+  setIsBackdrop: () => { }
+})
+
 
 const Hangman = () => {
 
@@ -32,7 +51,7 @@ const Hangman = () => {
   const [currentDefinition, setCurrentDefinition] = useState<string>('');
   const [lives, setLives] = useState(9);
   const [status, setStatus] = useState<Status>(Status.PROGRESS);
-  const [backdrop, setBackdrop] = useState(false);
+  const [isBackdrop, setIsBackdrop] = useState(false);
 
   const setFreshState = () => {
     setSentence([]);
@@ -41,7 +60,7 @@ const Hangman = () => {
     setCurrentDefinition('');
     setLives(9);
     setStatus(Status.PROGRESS);
-    setBackdrop(false);
+    setIsBackdrop(false);
   };
 
   const checkIfIsLetter = (letter: string) => {
@@ -143,21 +162,6 @@ const Hangman = () => {
     }
   };
 
-  const showDefinitionsHandler = () => {
-    setBackdrop(true);
-  };
-
-  const hideDefinitionsHandler = () => {
-    setBackdrop(false);
-  }
-
-  const changeDefinitionHandler = () => {
-    const definitionsNumber = definitions.length;
-    const currentDefinitionIndex = definitions.indexOf(currentDefinition);
-    const newDefinitionIndex = definitionsNumber - 1 !== currentDefinitionIndex ? currentDefinitionIndex + 1 : 0;
-    setCurrentDefinition(definitions[newDefinitionIndex]);
-  };
-
   let view;
   if (status === Status.PROGRESS) {
     view = (
@@ -180,33 +184,31 @@ const Hangman = () => {
     }
     view = (
       <>
-        <Translation
-          definition={currentDefinition}
-          definitionsNumber={definitions.length > 0 ? definitions.length : 0}
-          show={backdrop}
-          change={changeDefinitionHandler}
-          hide={hideDefinitionsHandler}
-          sentence={sentence.join("")} />
-        <Backdrop show={backdrop} />
+        <Translation />
+        <Backdrop />
         <Result
           message={message}
           classColor={classColor}
           restart={restart}
-          sentence={sentence.join("")}
-          resultClicked={showDefinitionsHandler}
         />
       </>
     )
   }
 
   return (
-    <Layout>
-      <div className={styles.HangmanMain} data-testid='hangman'>
-        <Header text="the hangman game" />
-        <Hearts />
-        {sentence.length > 0 ? view : <Spinner />}
-      </div>
-    </Layout>
+    <BackdropContext.Provider value={{ isBackdrop, setIsBackdrop }}>
+      <SentenceContext.Provider value={sentence}>
+        <DefinitionsContext.Provider value={{ definitions, currentDefinition, setCurrentDefinition }}>
+          <Layout>
+            <div className={styles.HangmanMain} data-testid='hangman'>
+              <Header text="the hangman game" />
+              <Hearts />
+              {sentence.length > 0 ? view : <Spinner />}
+            </div>
+          </Layout>
+        </DefinitionsContext.Provider>
+      </SentenceContext.Provider>
+    </BackdropContext.Provider>
   );
 }
 

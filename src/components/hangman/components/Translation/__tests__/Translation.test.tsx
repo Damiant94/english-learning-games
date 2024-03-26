@@ -1,18 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Translation from '../Translation';
+import { BackdropContext, DefinitionsContext, SentenceContext } from '@/components/hangman/Hangman';
 
 
 describe('Translation', () => {
     it('should have div with test-id translationVisible', () => {
         render(
-            <Translation
-                show={true}
-                change={() => { }}
-                definition=''
-                definitionsNumber={2}
-                sentence=''
-                hide={() => { }} />
+            <BackdropContext.Provider value={{ isBackdrop: true, setIsBackdrop: () => { } }}>
+                <DefinitionsContext.Provider value={{ definitions: [], currentDefinition: "", setCurrentDefinition: () => { } }}>
+                    <Translation />
+                </DefinitionsContext.Provider>
+            </BackdropContext.Provider>
         );
         const divTranslationVisible = screen.getByTestId("translationVisible");
         expect(divTranslationVisible).toBeInTheDocument();
@@ -20,27 +19,21 @@ describe('Translation', () => {
 
     it('should have div with class .Translation.hidden', () => {
         render(
-            <Translation
-                show={false}
-                change={() => { }}
-                definition=''
-                definitionsNumber={2}
-                sentence=''
-                hide={() => { }} />
-        );     
+            <DefinitionsContext.Provider value={{ definitions: [], currentDefinition: "", setCurrentDefinition: () => { } }}>
+                <Translation/>
+            </DefinitionsContext.Provider>
+        );
         const divTranslationHidden = screen.getByTestId("translationHidden");
         expect(divTranslationHidden).toBeInTheDocument();
     });
 
     it('should have 4 anchors with test id anchor', () => {
         render(
-            <Translation
-                show={true}
-                change={() => { }}
-                definition='one two three four'
-                definitionsNumber={2}
-                sentence=''
-                hide={() => { }} />
+            <SentenceContext.Provider value={[""]}>
+                <DefinitionsContext.Provider value={{ definitions: [""], currentDefinition: "word1 word2 word3, word4", setCurrentDefinition: () => { } }}>
+                    <Translation/>
+                </DefinitionsContext.Provider>
+            </SentenceContext.Provider>
         );
         const anchors = screen.getAllByTestId("anchor");
         expect(anchors.length).toBe(4);
@@ -48,13 +41,11 @@ describe('Translation', () => {
 
     it('should have 1 div with class .IconWrapper', () => {
         render(
-            <Translation
-                show={true}
-                change={() => { }}
-                definition=''
-                definitionsNumber={1}
-                sentence=''
-                hide={() => { }} />
+            <SentenceContext.Provider value={[""]}>
+                <DefinitionsContext.Provider value={{ definitions: [], currentDefinition: "", setCurrentDefinition: () => { } }}>
+                    <Translation/>
+                </DefinitionsContext.Provider>
+            </SentenceContext.Provider>
         );
         const divsIconWrapper = screen.getAllByTestId("icon");
         expect(divsIconWrapper.length).toBe(1);
@@ -62,13 +53,11 @@ describe('Translation', () => {
 
     it('should have 2 divs with class .IconWrapper', () => {
         render(
-            <Translation
-                show={true}
-                change={() => { }}
-                definition=''
-                definitionsNumber={2}
-                sentence=''
-                hide={() => { }} />
+            <SentenceContext.Provider value={[""]}>
+                <DefinitionsContext.Provider value={{ definitions: ["a", "b"], currentDefinition: "", setCurrentDefinition: () => { } }}>
+                    <Translation/>
+                </DefinitionsContext.Provider>
+            </SentenceContext.Provider>
         );
         const divsIconWrapper = screen.getAllByTestId("icon");
         expect(divsIconWrapper.length).toBe(2);
@@ -76,15 +65,13 @@ describe('Translation', () => {
 
     it('should have anchor with sentence', () => {
         render(
-            <Translation
-                show={true}
-                change={() => { }}
-                definition=''
-                definitionsNumber={2}
-                sentence='sentence'
-                hide={() => { }} />
+            <SentenceContext.Provider value={["w", "o", "r", "d"]}>
+                <DefinitionsContext.Provider value={{ definitions: [], currentDefinition: "", setCurrentDefinition: () => { } }}>
+                    <Translation/>
+                </DefinitionsContext.Provider>
+            </SentenceContext.Provider>
         );
-        const aSentence = screen.getByText('sentence');
+        const aSentence = screen.getByText('word');
         expect(aSentence).toBeInTheDocument();
     });
 });

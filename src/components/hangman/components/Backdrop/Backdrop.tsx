@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classes from './Backdrop.module.scss';
+import { BackdropContext } from '../../Hangman';
 
-const Backdrop = (props: {show: boolean}) => {
+const Backdrop = () => {
 
-    const secondClassName = props.show ? classes.visible : classes.hidden;
-    const dataTestId = props.show ? 'backdrop-visible' : 'backdrop-hidden'
+    const { isBackdrop } = useContext(BackdropContext)
+
+    const secondClassName = isBackdrop ? classes.visible : classes.hidden;
+    const dataTestId = isBackdrop ? 'backdrop-visible' : 'backdrop-hidden'
 
     return (
         <div className={`${classes.Backdrop} ${secondClassName}`} data-testid={dataTestId}></div>
